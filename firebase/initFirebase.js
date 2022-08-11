@@ -15,7 +15,6 @@ const clientCredentials = {
 
 export default function initFirebase() {
 	if (!firebase.apps.length) {
-		firebase.initializeApp(clientCredentials);
 		if (typeof window !== "undefined") {
 			if ("measurementId" in clientCredentials) {
 				firebase.analytics();
