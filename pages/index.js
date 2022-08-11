@@ -7,7 +7,6 @@ import MovieHeader from "../components/MovieHeader";
 import MovieGrid from "../components/MovieGrid";
 import { useState } from "react";
 import { movieGridTabs } from "../utils";
-import firebase from "../firebase/initFirebase";
 
 import "swiper/css";
 import "swiper/css/autoplay";
