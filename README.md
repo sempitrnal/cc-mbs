@@ -9,7 +9,9 @@
 2. Choose a directory then navigate to it. Preferably
    **/home/[username]/projects/**
    >
-3. Execute the following:
+3. Copy .env.example content and create a .env.local file then paste the variables
+   >
+4. Execute the following:
    >
    ```
      git clone https://github.com/whitewaterjunkie/cc-mbs.git
@@ -22,4 +24,5 @@
    ```
      docker-compose up -d
    ```
-4. Once done, you should be able to visit [localhost](http://localhost:3000)
+   >
+5. Once done, you should be able to visit [localhost](http://localhost:3000)
