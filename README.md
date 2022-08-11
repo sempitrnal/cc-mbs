@@ -9,7 +9,8 @@
 2. Choose a directory then navigate to it. Preferably
    **/home/[username]/projects/**
    >
-3. Copy .env.example content and create a .env.local file then paste the variables
+3. Copy .env.example variables and create a .env.local or .env file then paste
+   the variables
    >
 4. Execute the following:
    >
