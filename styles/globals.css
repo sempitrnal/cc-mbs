@@ -52,10 +52,10 @@ a {
 
 @layer components {
 	.movie-grid-tabs-wrapper {
-		@apply flex px-[1rem] text-center md:text-start  lg:px-[5rem] py-[4.5rem] text-lg lg:text-3xl font-semibold lg:gap-5 transition-all duration-300 delay-300 gap-2;
+		@apply flex px-[1rem] text-center md:text-start  lg:px-[5rem] py-[4.5rem] text-lg lg:text-3xl font-semibold lg:gap-5 transition-all duration-150 gap-2;
 	}
 	.movie-grid-tabs {
-		@apply relative px-3 transition duration-300 rounded-lg cursor-pointer;
+		@apply relative px-3 transition duration-150 rounded-lg cursor-pointer;
 	}
 	.inactive-movie-grid-tab {
 		@apply shadow-md hover:shadow-lg;
@@ -67,7 +67,7 @@ a {
 		@apply absolute top-0 left-0 w-full h-full bg-black rounded-md -z-10;
 	}
 	.movie-grid {
-		@apply grid transition-all duration-300 delay-300 ease-in-out grid-cols-[repeat(auto-fit,minmax(150px,150px))]  md:grid-cols-[repeat(auto-fit,minmax(220px,220px))] place-content-center gap-5 xl:gap-10 xl:mx-[15rem] overflow-hidden;
+		@apply grid transition-all duration-150 ease-in-out grid-cols-[repeat(auto-fit,minmax(150px,150px))]  md:grid-cols-[repeat(auto-fit,minmax(220px,220px))] place-content-center gap-5 xl:gap-10 xl:mx-[5rem] overflow-hidden;
 	}
 	.movie {
 		@apply cursor-pointer  transition-all duration-700 ease-in-out hover:opacity-[.90] shadow-[5px_5px_10px_#0000001e] rounded-xl w-[150px] h-[220px] md:w-[220px] md:h-[300px] relative overflow-hidden;
