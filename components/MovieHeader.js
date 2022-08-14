@@ -4,9 +4,9 @@ import MovieHeaderDetails from "./MovieHeaderDetails";
 function MovieHeader({ e, deets }) {
 	return (
 		<div className="">
-			<div className="h-[550px] xl:h-[750px] w-screen overflow-y-hidden">
+			<div className="h-[550px] xl:h-[750px] w-full overflow-y-hidden">
 				<MovieHeaderDetails e={e} deets={deets} />
-				<div className="h-full bg-gradient-to-b from-[#26262677] to-[#000000f7] relative">
+				<div className="w-full h-full bg-gradient-to-b from-[#26262677] to-[#000000f7] relative">
 					<Image
 						quality="100"
 						priority
