@@ -11,7 +11,7 @@ export default function MovieGrid({ e, isUpcoming, upcoming_deets }) {
 		},
 	};
 	const slideRight = {
-		initial: { x: 150, opacity: 0 },
+		initial: { x: 20, opacity: 0 },
 		animate: {
 			x: 0,
 			opacity: 1,
@@ -23,10 +23,8 @@ export default function MovieGrid({ e, isUpcoming, upcoming_deets }) {
 			},
 		},
 		exit: {
-			x: 150,
 			opacity: 0,
 			transition: {
-				delay: 0.1,
 				type: "spring",
 				damping: 20,
 				stiffness: 80,
@@ -44,40 +42,40 @@ export default function MovieGrid({ e, isUpcoming, upcoming_deets }) {
 		<motion.div
 			initial="initial"
 			animate="animate"
-			layout
-			className="w-full"
+			variants={slideRight}
+			className="w-full rounded-lg"
 			key={e.id}
 		>
-			<Link href={`movies/${e.id}`}>
-				<div className="movie">
-					<AnimatePresence>
-						{isUpcoming && (
-							<motion.div
-								variants={slideRight}
-								className="float-right pr-3 text-white bg-red-600 text-end w-[50%] rounded-l-lg text-sm"
-							>
-								{upcoming_deets.release_date}
-							</motion.div>
-						)}
-					</AnimatePresence>
-
-					<Image
-						className=""
-						loading="lazy"
-						layout="fill"
-						quality="1"
-						objectFit="cover"
-						style={{
-							filter: "contrast(1.3)",
-							zIndex: -1,
-						}}
-						src={`https://image.tmdb.org/t/p/original${e.poster_path}`}
-						alt=""
-					></Image>
+			<Link href={`movie/${e.id}`}>
+				<div className="overflow-hidden rounded-xl ">
+					<motion.div className="movie hover:scale-105">
+						<AnimatePresence>
+							{isUpcoming && (
+								<motion.div
+									variants={slideRight}
+									className="float-right px-3 text-white bg-red-600 text-end  rounded-l-lg text-[.7rem]"
+								>
+									{upcoming_deets.release_date}
+								</motion.div>
+							)}
+						</AnimatePresence>
+						<Image
+							className=""
+							layout="fill"
+							quality="1"
+							objectFit="cover"
+							style={{
+								filter: "contrast(1.3)",
+								zIndex: -1,
+							}}
+							src={`${process.env.NEXT_PUBLIC_TMDB_MOVIE_IMAGE_URL}${e.poster_path}`}
+							alt=""
+						></Image>
+					</motion.div>
 				</div>
 			</Link>
 			<div className="flex justify-center mt-5 text-[#333]">
-				<p className="w-40 text-xl font-semibold text-center">
+				<p className="w-40 text-xl font-semibold text-center transition duration-200 ease-in-out dark:text-white">
 					{e.original_title}
 				</p>
 			</div>

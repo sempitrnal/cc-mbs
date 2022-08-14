@@ -1,11 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { AiOutlineSearch } from "react-icons/ai";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { CgClose } from "react-icons/cg";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
+import ThemeChangerButton from "./ThemeChangerButton";
 export default function Nav() {
+	const router = useRouter();
+
 	const [menuIsOpen, setMenuIsOpen] = useState(false);
 	const [scrollY, setScrollY] = useState(0);
 	const hello = () => {
@@ -23,32 +26,27 @@ export default function Nav() {
 			setScrollY(window.scrollY);
 		};
 
-		// just trigger this so that the initial state
-		// is updated as soon as the component is mounted
-		// related: https://stackoverflow.com/a/63408216
 		handleScroll();
 
 		window.addEventListener("scroll", handleScroll);
 		return () => {
 			window.removeEventListener("scroll", handleScroll);
 		};
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (
 		<nav
 			className={`flex  items-center fixed text-white top-0 py-2 left-0 right-0 z-20 px-[1rem] lg:px-[5rem]   transition-colors duration-300  ease-in-out ${
 				scrollY > 500 ? "text-white bg-[#000000]" : ""
-			} justify-between`}
+			} justify-between ${router.route !== "/" ? "bg-black" : ""}`}
 		>
 			<div
 				className={`fixed overflow-hidden lg:hidden left-0 right-0 bg-black -z-10 bottom-[35rem] transition-all duration-300 ease-in-out ${
-					menuIsOpen ? "top-[0%]" : "top-[40%]"
+					menuIsOpen ? "top-[0%]" : "top-[50%]"
 				}`}
 			></div>
 			<div className="flex items-center gap-16">
 				<div className="cursor-pointer ">
-					<Link href={"movies"}>
+					<Link href={"/"}>
 						<div className="w-[70px] h-[70px] relative">
 							<Image layout="fill" src={"/logo.png"} alt="logo" />
 						</div>
@@ -61,7 +59,7 @@ export default function Nav() {
 					}`}
 				>
 					<div className="cursor-pointer ">
-						<Link href={"movies"}>
+						<Link href={"/"}>
 							<p>Home </p>
 						</Link>
 					</div>
@@ -83,7 +81,7 @@ export default function Nav() {
 				</div>
 			</div>
 
-			<form action="" className="hidden lg:block ">
+			{/* <form action="" className="hidden lg:block ">
 				<div className="relative w-full h-full">
 					<input
 						type="text"
@@ -93,34 +91,38 @@ export default function Nav() {
 						<AiOutlineSearch />
 					</div>
 				</div>
-			</form>
+			</form> */}
 
 			<div className="items-center hidden gap-3 lg:flex">
-				<div className="w-[30px] h-[30px] bg-white rounded-full"></div>
-				<div className="">John Doe</div>
+				{/* <div className="w-[30px] h-[30px] bg-white rounded-full"></div>
+				<div className="">John Doe</div> */}
+				<p>Login</p>
+				<ThemeChangerButton />
 			</div>
-			<div
-				className="block text-3xl cursor-pointer lg:hidden"
-				onClick={() => setMenuIsOpen(!menuIsOpen)}
-			>
-				{!menuIsOpen && (
-					<motion.div
-						initial={{ scale: 0.3 }}
-						animate={{ scale: 1 }}
-						className=""
-					>
-						<HiMenuAlt3 />
-					</motion.div>
-				)}
-				{menuIsOpen && (
-					<motion.div
-						initial={{ scale: 0.3 }}
-						animate={{ scale: 1 }}
-						className=""
-					>
-						<CgClose />
-					</motion.div>
-				)}
+			<div className="flex gap-3 text-3xl cursor-pointer lg:hidden">
+				<div className="text-sm">
+					<ThemeChangerButton />
+				</div>
+				<div className="" onClick={() => setMenuIsOpen(!menuIsOpen)}>
+					{!menuIsOpen && (
+						<motion.div
+							initial={{ scale: 0.3 }}
+							animate={{ scale: 1 }}
+							className=""
+						>
+							<HiMenuAlt3 />
+						</motion.div>
+					)}
+					{menuIsOpen && (
+						<motion.div
+							initial={{ scale: 0.3 }}
+							animate={{ scale: 1 }}
+							className=""
+						>
+							<CgClose />
+						</motion.div>
+					)}
+				</div>
 			</div>
 		</nav>
 	);
