@@ -3,7 +3,11 @@ const nextConfig = {
 	reactStrictMode: true,
 	swcMinify: true,
 	images: {
-		domains: ["image.tmdb.org", "upload.wikimedia.org"],
+		domains: [
+			"image.tmdb.org",
+			"upload.wikimedia.org",
+			"lh3.googleusercontent.com",
+		],
 	},
 	webpackDevMiddleware: (config) => {
 		// Solve compiling problem via vagrant

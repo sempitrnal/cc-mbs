@@ -23,7 +23,6 @@ function MovieList({
 	upcoming,
 	upcoming_details,
 }) {
-	console.log(upcoming_details);
 	const [movieGrid, setMovieGrid] = useState(0);
 	const toggleMovieTab = (e) => {
 		setMovieGrid(e);
@@ -159,6 +158,7 @@ export async function getStaticProps() {
 			} catch (e) {}
 		})
 	);
+
 	return {
 		props: {
 			top3: data.results.slice(0, 3),

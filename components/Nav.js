@@ -3,22 +3,43 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { CgClose } from "react-icons/cg";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import ThemeChangerButton from "./ThemeChangerButton";
+import { useStateContext } from "../context/context";
+import { useSession, signIn, signOut } from "next-auth/react";
 export default function Nav() {
+	const { data: session } = useSession();
 	const router = useRouter();
-
+	const { loginPopOpen, setLoginPopOpen } = useStateContext();
 	const [menuIsOpen, setMenuIsOpen] = useState(false);
-	const [scrollY, setScrollY] = useState(0);
-	const hello = () => {
-		const navlink = document.getElementById("linkz");
 
-		if (menuIsOpen) {
-			navlink.classList.add("open");
-		} else {
-			navlink.classList.remove("open");
-		}
+	const [scrollY, setScrollY] = useState(0);
+	const loginPop = {
+		initial: {
+			x: 120,
+			y: -35,
+			opacity: 0,
+			scale: 0,
+			transition: {
+				duration: 0.1,
+				type: "spring",
+				damping: 20,
+				stiffness: 100,
+			},
+		},
+		animate: {
+			x: 0,
+			y: 0,
+			scale: 1,
+			opacity: 1,
+			transition: {
+				duration: 0.1,
+				type: "spring",
+				damping: 20,
+				stiffness: 100,
+			},
+		},
 	};
 
 	useEffect(() => {
@@ -33,6 +54,7 @@ export default function Nav() {
 			window.removeEventListener("scroll", handleScroll);
 		};
 	}, []);
+	console.log(session);
 	return (
 		<nav
 			className={`flex  items-center fixed text-white top-0 py-2 left-0 right-0 z-20 px-[1rem] lg:px-[5rem]   transition-colors duration-300  ease-in-out ${
@@ -64,17 +86,17 @@ export default function Nav() {
 						</Link>
 					</div>
 					<div className="cursor-pointer ">
-						<Link href={"movies"}>
+						<Link href={"/"}>
 							<p>Movies</p>
 						</Link>
 					</div>
 					<div className="cursor-pointer ">
-						<Link href={"movies"}>
+						<Link href={"/"}>
 							<p>Schedule</p>
 						</Link>
 					</div>
 					<div className="cursor-pointer ">
-						<Link href={"movies"}>
+						<Link href={"/"}>
 							<p>Promos</p>
 						</Link>
 					</div>
@@ -93,10 +115,72 @@ export default function Nav() {
 				</div>
 			</form> */}
 
-			<div className="items-center hidden gap-3 lg:flex">
+			<div className="items-center hidden gap-10 lg:flex">
 				{/* <div className="w-[30px] h-[30px] bg-white rounded-full"></div>
 				<div className="">John Doe</div> */}
-				<p>Login</p>
+				<div className="relative">
+					{session ? (
+						<div
+							className="flex gap-2 transition duration-300 cursor-pointer hover:opacity-80"
+							onClick={() => setLoginPopOpen(!loginPopOpen)}
+						>
+							<div className="relative w-6 h-6 rounded-[50%] overflow-hidden ">
+								<Image
+									src={session.user.image}
+									layout="fill"
+									alt="user_image"
+								/>
+							</div>
+							<p>{session.user.name.split(" ")[0]}</p>
+						</div>
+					) : (
+						<p
+							className="transition duration-300 cursor-pointer hover:opacity-80 "
+							onClick={() => setLoginPopOpen(!loginPopOpen)}
+						>
+							Login
+						</p>
+					)}
+					<AnimatePresence>
+						{loginPopOpen && (
+							<motion.div
+								onMouseLeave={() => {
+									setTimeout(() => {
+										setLoginPopOpen(false);
+									}, 300);
+								}}
+								initial="initial"
+								animate="animate"
+								exit="initial"
+								variants={loginPop}
+								className="loginpop absolute left-[-12rem] flex flex-col justify-center w-[12rem] px-3 h-[3rem] bg-white rounded-lg "
+							>
+								{session ? (
+									<div
+										onClick={() => signOut()}
+										className="flex items-center justify-center py-1 px-2 rounded-md transition duration-300 gap-2 cursor-pointer hover:bg-[#00000012]"
+									>
+										<p className="text-sm text-black">Sign out</p>
+									</div>
+								) : (
+									<div
+										onClick={() => signIn()}
+										className="flex items-center justify-center py-1 px-2 rounded-md transition duration-300 gap-2 cursor-pointer hover:bg-[#00000012]"
+									>
+										<div className="relative w-4 h-4 ">
+											<Image
+												src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png"
+												layout="fill"
+												alt="google_logo"
+											/>
+										</div>
+										<p className="text-sm text-black">Sign in with google</p>
+									</div>
+								)}
+							</motion.div>
+						)}
+					</AnimatePresence>
+				</div>
 				<ThemeChangerButton />
 			</div>
 			<div className="flex gap-3 text-3xl cursor-pointer lg:hidden">
