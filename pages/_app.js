@@ -15,11 +15,11 @@ function MyApp({ Component, pageProps, router, session }) {
 						storageKey="theme"
 						attribute="class"
 					>
-						<Nav />
+						{!router.route.includes("signin") && <Nav />}
 						<AnimatePresence exitBeforeEnter initial={false}>
 							<Component {...pageProps} key={router.route} />
 						</AnimatePresence>
-						<Footer />
+						{!router.route.includes("signin") && <Footer />}
 					</ThemeProvider>
 				</SessionProvider>
 			</div>

@@ -9,15 +9,20 @@ export default function Movie({ movie }) {
 	const router = useRouter();
 	return (
 		<motion.div className="px-[5rem] min-h-screen flex items-center ">
-			<div className="flex gap-10 py-[16rem] items-center xl:items-start">
-				<div className="relative overflow-hidden rounded-xl w-[500px] h-[500px] xl:h-[700px]">
+			<div className="grid grid-cols-2 py-[12rem] items-center place-items-center">
+				<div className="relative overflow-hidden rounded-xl w-[500px] h-[600px]">
 					<Image
-						priority
+						className=""
 						layout="fill"
+						quality="1"
 						objectFit="cover"
+						style={{
+							filter: "contrast(1.3)",
+							zIndex: -1,
+						}}
 						src={`${process.env.NEXT_PUBLIC_TMDB_MOVIE_IMAGE_URL}${movie.poster_path}`}
-						alt={movie.title}
-					/>
+						alt=""
+					></Image>
 				</div>
 				<div className="flex flex-col">
 					<div className="mb-5 text-5xl font-semibold xl:text-7xl">
