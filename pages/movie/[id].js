@@ -8,9 +8,9 @@ export default function Movie({ movie }) {
 	console.log(movie);
 	const router = useRouter();
 	return (
-		<motion.div className="px-[5rem] min-h-screen flex items-center ">
-			<div className="grid grid-cols-2 py-[12rem] items-center place-items-center">
-				<div className="relative overflow-hidden rounded-xl w-[500px] h-[600px]">
+		<motion.div className="flex items-center min-h-screen ">
+			<div className="flex flex-col lg:grid lg:grid-cols-2 py-[8rem] lg:py-[12rem] items-center place-items-center">
+				<div className="relative overflow-hidden rounded-xl w-[250px] h-[350px] lg:w-[350px] lg:h-[450px] xl:w-[500px] xl:h-[600px] transition-all duration-300">
 					<Image
 						className=""
 						layout="fill"
@@ -24,18 +24,18 @@ export default function Movie({ movie }) {
 						alt=""
 					></Image>
 				</div>
-				<div className="flex flex-col">
-					<div className="mb-5 text-5xl font-semibold xl:text-7xl">
+				<div className="flex flex-col items-center lg:items-start">
+					<div className="mt-10 mb-5 text-2xl font-semibold text-center md:text-5xl lg:text-start xl:text-7xl lg:mt-0">
 						{movie.title}
 					</div>
-					<div className="flex gap-3 mb-2 ">
+					<div className="flex w-[75%] lg:w-full lg:justify-start justify-center gap-3 mb-2 lg:gap-3">
 						<p className="text-[#000000d3] dark:text-[#ffffffd4]  font-bold mb-8">
 							{movie.runtime}m
 						</p>
 						{movie.genres.map((e) => {
 							return (
 								<p
-									className="text-[#000000c1] dark:text-[#ffffffd4] "
+									className="text-[#000000c1] dark:text-[#ffffffd4] text-center break-words "
 									key={e.id}
 								>
 									{e.name}
@@ -44,18 +44,18 @@ export default function Movie({ movie }) {
 						})}
 					</div>
 					{movie.tagline && (
-						<p className="mb-10 text-4xl italic   font-[300] dark:text-[#ffffff53] text-[#00000022] w-max flex gap-3">
+						<p className="w-[95%] mb-10 text-2xl xl:text-4xl italic break-words  font-[300] dark:text-[#ffffff53] text-[#00000022] flex gap-3 justify-center lg:justify-start">
 							<span className="text-lg">
 								<FaQuoteLeft />
 							</span>
 							{movie.tagline}
-							<span className="text-lg">
+							<span className="hidden text-lg lg:block">
 								<FaQuoteRight />
 							</span>
 						</p>
 					)}
 					<h2 className="mb-5 text-4xl font-semibold">Overview</h2>
-					<p className="w-[85%] xl:w-[70%] mb-7">{movie.overview}</p>
+					<p className="w-[95%] xl:w-[70%] mb-7">{movie.overview}</p>
 					<hr className="mb-10" />
 					<div className="flex gap-5">
 						<motion.div className="mb-5">
@@ -95,7 +95,7 @@ export default function Movie({ movie }) {
 								<motion.button
 									whileHover={{ x: 5 }}
 									transition={{ duration: 0.5 }}
-									className="flex items-center gap-2 px-5 py-2 text-lg bg-white rounded-md shadow-lg"
+									className="flex items-center gap-2 px-5 py-2 text-lg bg-white rounded-md shadow-lg dark:text-black"
 								>
 									<p className="">Available on</p>
 									<div className="text-2xl">
