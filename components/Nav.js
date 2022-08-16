@@ -147,7 +147,7 @@ export default function Nav() {
 								onMouseLeave={() => {
 									setTimeout(() => {
 										setLoginPopOpen(false);
-									}, 300);
+									}, 700);
 								}}
 								initial="initial"
 								animate="animate"
