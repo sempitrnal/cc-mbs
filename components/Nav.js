@@ -136,50 +136,11 @@ export default function Nav() {
 					) : (
 						<p
 							className="transition duration-300 cursor-pointer hover:opacity-80 "
-							onClick={() => setLoginPopOpen(!loginPopOpen)}
+							onClick={() => signIn()}
 						>
 							Login
 						</p>
 					)}
-					<AnimatePresence>
-						{loginPopOpen && (
-							<motion.div
-								onMouseLeave={() => {
-									setTimeout(() => {
-										setLoginPopOpen(false);
-									}, 700);
-								}}
-								initial="initial"
-								animate="animate"
-								exit="initial"
-								variants={loginPop}
-								className="loginpop absolute left-[-12rem] flex flex-col justify-center w-[12rem] px-3 h-[3rem] bg-white rounded-lg "
-							>
-								{session ? (
-									<div
-										onClick={() => signOut()}
-										className="flex items-center justify-center py-1 px-2 rounded-md transition duration-300 gap-2 cursor-pointer hover:bg-[#00000012]"
-									>
-										<p className="text-sm text-black">Sign out</p>
-									</div>
-								) : (
-									<div
-										onClick={() => signIn()}
-										className="flex items-center justify-center py-1 px-2 rounded-md transition duration-300 gap-2 cursor-pointer hover:bg-[#00000012]"
-									>
-										<div className="relative w-4 h-4 ">
-											<Image
-												src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png"
-												layout="fill"
-												alt="google_logo"
-											/>
-										</div>
-										<p className="text-sm text-black">Sign in with google</p>
-									</div>
-								)}
-							</motion.div>
-						)}
-					</AnimatePresence>
 				</div>
 				<ThemeChangerButton />
 			</div>
