@@ -17,8 +17,8 @@ export default function Nav() {
 	const [scrollY, setScrollY] = useState(0);
 	const loginPop = {
 		initial: {
-			x: 120,
-			y: -35,
+			x: session ? 60 : 120,
+			y: session ? -35 : -55,
 			opacity: 0,
 			scale: 0,
 			transition: {
@@ -54,7 +54,7 @@ export default function Nav() {
 			window.removeEventListener("scroll", handleScroll);
 		};
 	}, []);
-	console.log(session);
+
 	return (
 		<nav
 			className={`flex  items-center fixed text-white top-0 py-2 left-0 right-0 z-20 px-[1rem] lg:px-[5rem]   transition-colors duration-300  ease-in-out ${
@@ -68,7 +68,7 @@ export default function Nav() {
 			></div>
 			<div className="flex items-center gap-16">
 				<div className="cursor-pointer ">
-					<Link href={"/"}>
+					<Link href={"/"} scroll={false}>
 						<div className="w-[70px] h-[70px] relative">
 							<Image layout="fill" src={"/logo.png"} alt="logo" />
 						</div>
@@ -136,11 +136,69 @@ export default function Nav() {
 					) : (
 						<p
 							className="transition duration-300 cursor-pointer hover:opacity-80 "
-							onClick={() => signIn()}
+							onClick={() => setLoginPopOpen(!loginPopOpen)}
 						>
 							Login
 						</p>
 					)}
+					<AnimatePresence>
+						{loginPopOpen && (
+							<motion.div
+								onMouseLeave={() => {
+									setTimeout(() => {
+										setLoginPopOpen(false);
+									}, 700);
+								}}
+								initial="initial"
+								animate="animate"
+								exit="initial"
+								variants={loginPop}
+								className={`loginpop absolute ${
+									session ? "left-[-6rem]" : "left-[-13rem] "
+								} flex flex-col justify-center px-3 py-3 bg-white rounded-lg`}
+							>
+								{session ? (
+									<div
+										onClick={() => signOut()}
+										className="flex items-center justify-center py-1 px-2 rounded-md transition duration-300 gap-2 cursor-pointer hover:bg-[#00000012]"
+									>
+										<p className="text-sm text-black">Sign out</p>
+									</div>
+								) : (
+									<div className="">
+										<div
+											onClick={() => signIn("google")}
+											className="flex items-center justify-start py-1 px-2 rounded-md transition duration-300 gap-2 cursor-pointer hover:bg-[#00000012] mb-2"
+										>
+											<div className="relative w-4 h-4 ">
+												<Image
+													src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png"
+													layout="fill"
+													alt="google_logo"
+												/>
+											</div>
+											<p className="text-sm text-black">Sign in with Google</p>
+										</div>
+										<div
+											onClick={() => signIn("facebook")}
+											className="flex items-center justify-center py-1 px-2 rounded-md transition duration-300 gap-2 cursor-pointer hover:bg-[#00000012]"
+										>
+											<div className="relative w-4 h-4 ">
+												<Image
+													src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Facebook_logo_%28square%29.png"
+													layout="fill"
+													alt="fb_logo"
+												/>
+											</div>
+											<p className="text-sm text-black">
+												Sign in with Facebook
+											</p>
+										</div>
+									</div>
+								)}
+							</motion.div>
+						)}
+					</AnimatePresence>
 				</div>
 				<ThemeChangerButton />
 			</div>
