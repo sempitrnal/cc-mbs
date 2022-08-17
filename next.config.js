@@ -7,6 +7,7 @@ const nextConfig = {
 			"image.tmdb.org",
 			"upload.wikimedia.org",
 			"lh3.googleusercontent.com",
+			"platform-lookaside.fbsbx.com",
 		],
 	},
 	webpackDevMiddleware: (config) => {

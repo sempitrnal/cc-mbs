@@ -4,11 +4,18 @@ import { useRouter } from "next/router";
 import { CgArrowRight, CgQuote } from "react-icons/cg";
 import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 import { SiAppletv } from "react-icons/si";
+import { fadeUp } from "../../../utils";
 export default function Movie({ movie }) {
 	console.log(movie);
 	const router = useRouter();
 	return (
-		<motion.div className="flex items-center min-h-screen ">
+		<motion.div
+			initial="initial"
+			animate="animate"
+			exit="initial"
+			variants={fadeUp}
+			className="flex items-center min-h-screen "
+		>
 			<div className="flex flex-col lg:grid lg:grid-cols-2 py-[8rem] lg:py-[12rem] items-center place-items-center">
 				<div className="relative overflow-hidden rounded-xl w-[250px] h-[350px] lg:w-[350px] lg:h-[450px] xl:w-[500px] xl:h-[600px] transition-all duration-300">
 					<Image
@@ -61,7 +68,9 @@ export default function Movie({ movie }) {
 						<motion.div className="mb-5">
 							<motion.button
 								onClick={() => {
-									router.push("/tickets");
+									router.push({
+										pathname: `${movie.id}/tickets`,
+									});
 								}}
 								whileHover={{ x: 5 }}
 								transition={{ duration: 0.5 }}
@@ -112,6 +121,7 @@ export default function Movie({ movie }) {
 }
 
 export async function getServerSideProps(context) {
+	console.log(context.query);
 	const { params } = context;
 	const { id } = params;
 	const response = await fetch(

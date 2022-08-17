@@ -4,12 +4,14 @@ const CineContext = createContext();
 
 export default function StateContext({ children }) {
 	const [loginPopOpen, setLoginPopOpen] = useState(false);
-
+	const [selectedMovieId, setSelectedMovieId] = useState();
 	return (
 		<CineContext.Provider
 			value={{
 				loginPopOpen,
 				setLoginPopOpen,
+				selectedMovieId,
+				setSelectedMovieId,
 			}}
 		>
 			{children}
