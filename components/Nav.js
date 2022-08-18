@@ -59,7 +59,7 @@ export default function Nav() {
 
 	return (
 		<nav
-			className={`flex  items-center fixed text-white top-0 py-2 left-0 right-0 z-20 px-[1rem] lg:px-[5rem]   transition-colors duration-300  ease-in-out ${
+			className={`flex  items-center fixed text-white top-0 py-2 left-0 right-0 z-50 px-[1rem] lg:px-[5rem]   transition-colors duration-300  ease-in-out ${
 				scrollY > 500 ? "text-white bg-[#000000]" : ""
 			} justify-between ${router.route !== "/" ? "bg-black" : ""}`}
 		>

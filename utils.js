@@ -114,7 +114,7 @@ export function avail_days(day) {
 		newd = now.setDate(now.getDate() + 1);
 		day_arr.push({
 			date: new Date(newd),
-			time: ["16:20"],
+			time: ["4:20 PM", "9:00 AM"],
 		});
 	}
 	return day_arr;
