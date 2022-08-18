@@ -1,35 +1,61 @@
 import { Breadcrumb } from "flowbite-react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React from "react";
-import {
-	MdSchedule,
-	MdChair,
-	MdFastfood,
-	MdPayment,
-	MdCheckBox,
-} from "react-icons/md";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import DateBox from "../../../../components/DateBox";
+import { useStateContext } from "../../../../context/context";
+import { motion } from "framer-motion";
+import "@splidejs/react-splide/css";
+import { fadeUp } from "../../../../utils";
 
 export default function Tickets({ movie }) {
-	const router = useRouter();
-	console.log(router);
+	const { availDates } = useStateContext();
+	const cinemas = [1, 2, 3];
+
 	return (
-		<div className=" py-[12rem] px-[1rem] lg:px-[5rem] min-h-screen">
+		<motion.div
+			initial="initial"
+			animate="animate"
+			exit="exit"
+			variants={fadeUp}
+			className=" py-[12rem] px-[1rem] lg:px-[5rem] min-h-screen"
+		>
 			<div className="">
 				<h1 className="mb-5 text-5xl font-semibold">Tickets</h1>
-				<div className="hidden xs:block">
-					<Breadcrumb>
-						<Breadcrumb.Item href="" icon={MdSchedule}>
-							Date and time
-						</Breadcrumb.Item>
-						<Breadcrumb.Item icon={MdChair}>Seats</Breadcrumb.Item>
-						<Breadcrumb.Item icon={MdFastfood}>Add-ons</Breadcrumb.Item>
-						<Breadcrumb.Item icon={MdPayment}>Payment</Breadcrumb.Item>
-					</Breadcrumb>
-				</div>
+
+				<Breadcrumb className="px-5 py-3 bg-gray-50 dark:bg-gray-900">
+					<Breadcrumb.Item className="text-[.1rem]" href="">
+						Date and time
+					</Breadcrumb.Item>
+					<Breadcrumb.Item>Seats</Breadcrumb.Item>
+					<Breadcrumb.Item>Add-ons</Breadcrumb.Item>
+					<Breadcrumb.Item>Payment</Breadcrumb.Item>
+				</Breadcrumb>
 			</div>
-			<div className="flex justify-center"></div>
-		</div>
+			{cinemas.map((e, i) => {
+				return (
+					<div className="" key={i}>
+						<h2 className="pt-10 pb-5 text-3xl font-semibold">Cinema {e}</h2>
+						<div className=" w-[85%] lg:w-[70%] md:px-10 py-5  border rounded-xl border-[#33333339]">
+							<Splide
+								options={{
+									pagination: false,
+									arrows: false,
+									autoWidth: true,
+									gap: 10,
+								}}
+							>
+								{availDates.map(({ date, time }, i) => {
+									return (
+										<SplideSlide key={i} className="">
+											<DateBox date={date} />
+										</SplideSlide>
+									);
+								})}
+							</Splide>
+						</div>
+					</div>
+				);
+			})}
+		</motion.div>
 	);
 }
 
