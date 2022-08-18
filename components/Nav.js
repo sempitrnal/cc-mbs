@@ -27,7 +27,7 @@ export default function Nav() {
 				duration: 0.1,
 				type: "spring",
 				damping: 20,
-				stiffness: 100,
+				stiffness: 140,
 			},
 		},
 		animate: {
@@ -156,7 +156,7 @@ export default function Nav() {
 								exit="initial"
 								variants={loginPop}
 								className={`loginpop absolute shadow-md ${
-									session ? "left-[-6rem]" : "left-[-13rem] "
+									session ? "left-[-6rem]" : "left-[-15rem] "
 								} flex flex-col justify-center px-3 py-3 bg-white rounded-lg`}
 							>
 								{session ? (

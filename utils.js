@@ -82,3 +82,40 @@ export const fadeUp = {
 		},
 	},
 };
+export const monthNames = [
+	"January",
+	"February",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December",
+];
+export const dayNames = [
+	"Sunday",
+	"Monday",
+	"Tuesday",
+	"Wednesday",
+	"Thursday",
+	"Friday",
+	"Saturday",
+];
+export function avail_days(day) {
+	const now = new Date();
+	const day_arr = [];
+	let newd;
+
+	for (var i = 1; i <= 5; i++) {
+		newd = now.setDate(now.getDate() + 1);
+		day_arr.push({
+			date: new Date(newd),
+			time: ["16:20"],
+		});
+	}
+	return day_arr;
+}
