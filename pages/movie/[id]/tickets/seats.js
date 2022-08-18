@@ -10,18 +10,29 @@ export default function Seats() {
 
 	return (
 		<div className=" py-[8rem] px-[1rem] lg:px-[5rem] min-h-screen ">
-			<FormProgress>
-				<h1 className="mb-5 text-5xl font-semibold">Tickets</h1>
-
-				<Breadcrumb className="px-5 py-3 mb-5 rounded-lg bg-gray-50 dark:bg-gray-900">
-					<Breadcrumb.Item className="text-[.1rem]" href="">
-						Date and time
-					</Breadcrumb.Item>
-					<Breadcrumb.Item>Seats</Breadcrumb.Item>
-					<Breadcrumb.Item>Add-ons</Breadcrumb.Item>
-					<Breadcrumb.Item>Payment</Breadcrumb.Item>
-				</Breadcrumb>
-			</FormProgress>
+			<div className="fixed right-0 bg-white left-0 px-[5rem] top-24 pt-6 z-20 shadow-md">
+				<FormProgress>
+					<h1 className="mb-5 text-5xl font-semibold">Tickets</h1>
+					<Breadcrumb className="px-5 py-3 mb-5 rounded-lg bg-gray-50 dark:bg-gray-900">
+						<div
+							className="flex items-center text-sm font-medium text-gray-700 cursor-pointer hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+							href=""
+							onClick={() =>
+								router.push(
+									{ pathname: l.slice(0, l.length - 1).join("/") },
+									undefined,
+									{ scroll: false }
+								)
+							}
+						>
+							Date and time
+						</div>
+						<Breadcrumb.Item href="">Seats</Breadcrumb.Item>
+						<Breadcrumb.Item>Add-ons</Breadcrumb.Item>
+						<Breadcrumb.Item>Payment</Breadcrumb.Item>
+					</Breadcrumb>
+				</FormProgress>
+			</div>
 			<motion.div
 				initial="initial"
 				animate="animate"
