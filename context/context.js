@@ -10,6 +10,8 @@ export default function StateContext({ children }) {
 		avail_days(new Date().getDate())
 	);
 	const [selectedDate, setSelectedDate] = useState();
+	const [selectedCinema, setSelectedCinema] = useState();
+	const [selectedTime, setSelectedTime] = useState();
 	return (
 		<CineContext.Provider
 			value={{
@@ -20,6 +22,10 @@ export default function StateContext({ children }) {
 				availDates,
 				selectedDate,
 				setSelectedDate,
+				setSelectedCinema,
+				selectedCinema,
+				selectedTime,
+				setSelectedTime,
 			}}
 		>
 			{children}
