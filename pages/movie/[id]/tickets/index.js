@@ -5,7 +5,8 @@ import { useStateContext } from "../../../../context/context";
 import { motion } from "framer-motion";
 import "@splidejs/react-splide/css";
 import { fadeUp } from "../../../../utils";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 export default function Tickets({ movie }) {
 	const { availDates } = useStateContext();
 	const cinemas = [1, 2, 3];
@@ -14,8 +15,8 @@ export default function Tickets({ movie }) {
 		<motion.div
 			initial="initial"
 			animate="animate"
-			exit="exit"
 			variants={fadeUp}
+			exit="exit"
 			className=" py-[12rem] px-[1rem] lg:px-[5rem] min-h-screen"
 		>
 			<div className="">
@@ -35,22 +36,15 @@ export default function Tickets({ movie }) {
 					<div className="" key={i}>
 						<h2 className="pt-10 pb-5 text-3xl font-semibold">Cinema {e}</h2>
 						<div className=" w-[85%] lg:w-[70%] md:px-10 py-5  border rounded-xl border-[#33333339]">
-							<Splide
-								options={{
-									pagination: false,
-									arrows: false,
-									autoWidth: true,
-									gap: 10,
-								}}
-							>
+							<Swiper width="100" spaceBetween={15}>
 								{availDates.map(({ date, time }, i) => {
 									return (
-										<SplideSlide key={i} className="">
+										<SwiperSlide key={i} className="">
 											<DateBox date={date} />
-										</SplideSlide>
+										</SwiperSlide>
 									);
 								})}
-							</Splide>
+							</Swiper>
 						</div>
 					</div>
 				);
