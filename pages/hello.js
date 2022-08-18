@@ -8,6 +8,7 @@ export default function hello() {
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
 			transition={{ delay: 0.3 }}
+			className="h-screen p-32"
 		>
 			<h1>Hello World</h1>
 			<Link href={"/"}>sadm</Link>

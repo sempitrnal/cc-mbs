@@ -12,11 +12,11 @@ export default function Movie({ movie }) {
 		<motion.div
 			initial="initial"
 			animate="animate"
-			exit="initial"
+			exit="exit"
 			variants={fadeUp}
 			className="flex items-center min-h-screen "
 		>
-			<div className="flex flex-col lg:grid lg:grid-cols-2 py-[8rem] lg:py-[12rem] items-center place-items-center">
+			<div className="flex flex-col lg:grid lg:grid-cols-2 lg:mr-5 py-[8rem] lg:py-[12rem] items-center place-items-center">
 				<div className="relative overflow-hidden rounded-xl w-[250px] h-[350px] lg:w-[350px] lg:h-[450px] xl:w-[500px] xl:h-[600px] transition-all duration-300">
 					<Image
 						className=""
@@ -68,9 +68,13 @@ export default function Movie({ movie }) {
 						<motion.div className="mb-5">
 							<motion.button
 								onClick={() => {
-									router.push({
-										pathname: `${movie.id}/tickets`,
-									});
+									router.push(
+										{
+											pathname: `${movie.id}/tickets`,
+										},
+										undefined,
+										{ scroll: false }
+									);
 								}}
 								whileHover={{ x: 5 }}
 								transition={{ duration: 0.5 }}

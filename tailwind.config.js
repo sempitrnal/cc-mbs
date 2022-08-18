@@ -2,6 +2,7 @@
 module.exports = {
 	darkMode: "class",
 	content: [
+		"./node_modules/flowbite-react/**/*.js",
 		"./pages/**/*.{js,ts,jsx,tsx}",
 		"./components/**/*.{js,ts,jsx,tsx}",
 	],
@@ -9,10 +10,10 @@ module.exports = {
 		extend: {
 			screens: {
 				xs: "450px",
-
+				lsm: "550px",
 				"3xl": "1700px",
 			},
 		},
 	},
-	plugins: [],
+	plugins: [require("flowbite/plugin")],
 };

@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 import ThemeChangerButton from "./ThemeChangerButton";
 import { useStateContext } from "../context/context";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { Tooltip } from "flowbite-react";
+import { MdFacebook } from "react-icons/md";
 export default function Nav() {
 	const { data: session } = useSession();
 	const router = useRouter();
@@ -91,7 +93,7 @@ export default function Nav() {
 						</Link>
 					</div>
 					<div className="cursor-pointer ">
-						<Link href={"/"}>
+						<Link href={"/hello"}>
 							<p>Schedule</p>
 						</Link>
 					</div>
@@ -153,7 +155,7 @@ export default function Nav() {
 								animate="animate"
 								exit="initial"
 								variants={loginPop}
-								className={`loginpop absolute ${
+								className={`loginpop absolute shadow-md ${
 									session ? "left-[-6rem]" : "left-[-13rem] "
 								} flex flex-col justify-center px-3 py-3 bg-white rounded-lg`}
 							>
@@ -168,7 +170,7 @@ export default function Nav() {
 									<div className="">
 										<div
 											onClick={() => signIn("google")}
-											className="flex items-center justify-start py-1 px-2 rounded-md transition duration-300 gap-2 cursor-pointer hover:bg-[#00000012] mb-2"
+											className="flex items-center justify-start  py-3 px-4 shadow-md rounded-md transition duration-300 gap-2 cursor-pointer hover:bg-[#00000006] mb-2"
 										>
 											<div className="relative w-4 h-4 ">
 												<Image
@@ -181,17 +183,13 @@ export default function Nav() {
 										</div>
 										<div
 											onClick={() => signIn("facebook")}
-											className="flex items-center justify-center py-1 px-2 rounded-md transition duration-300 gap-2 cursor-pointer hover:bg-[#00000012]"
+											className="flex items-center justify-center py-3 px-4 rounded-md transition duration-300 gap-2 cursor-pointer hover:bg-[#3a559fd9] bg-[#3A559F]"
 										>
-											<div className="relative w-4 h-4 ">
-												<Image
-													src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Facebook_logo_%28square%29.png"
-													layout="fill"
-													alt="fb_logo"
-												/>
+											<div className="text-xl ">
+												<MdFacebook />
 											</div>
-											<p className="text-sm text-black">
-												Sign in with Facebook
+											<p className="text-sm text-white">
+												Continue with Facebook
 											</p>
 										</div>
 									</div>
@@ -200,11 +198,15 @@ export default function Nav() {
 						)}
 					</AnimatePresence>
 				</div>
-				<ThemeChangerButton />
+				<Tooltip content="Toggle theme mode" arrow={false}>
+					<ThemeChangerButton />
+				</Tooltip>
 			</div>
 			<div className="flex gap-3 text-3xl cursor-pointer lg:hidden">
 				<div className="text-sm">
-					<ThemeChangerButton />
+					<Tooltip content="Toggle theme mode" arrow={false}>
+						<ThemeChangerButton />
+					</Tooltip>
 				</div>
 				<div className="" onClick={() => setMenuIsOpen(!menuIsOpen)}>
 					{!menuIsOpen && (

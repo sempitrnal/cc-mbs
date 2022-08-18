@@ -16,7 +16,11 @@ function MyApp({ Component, pageProps, router, session }) {
 						attribute="class"
 					>
 						{!router.route.includes("signin") && <Nav />}
-						<AnimatePresence exitBeforeEnter initial={false}>
+						<AnimatePresence
+							exitBeforeEnter
+							initial={false}
+							onExitComplete={() => window.scrollTo(0, 0)}
+						>
 							<Component {...pageProps} key={router.route} />
 						</AnimatePresence>
 						{!router.route.includes("signin") && <Footer />}

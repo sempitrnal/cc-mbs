@@ -40,7 +40,7 @@ export default function MovieGrid({ e, isUpcoming, upcoming_deets }) {
 	};
 	return (
 		<motion.div layout className="w-full rounded-lg" key={e.id}>
-			<Link href={`movie/${e.id}`} scroll>
+			<Link href={`movie/${e.id}`} scroll={false}>
 				<div className="overflow-hidden rounded-xl ">
 					<motion.div layout className="movie hover:scale-105">
 						<AnimatePresence>

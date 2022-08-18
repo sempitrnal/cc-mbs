@@ -59,15 +59,26 @@ export function string_to_slug(str) {
 export const fadeUp = {
 	initial: {
 		opacity: 0,
+		x: 300,
 	},
 	animate: {
 		opacity: 1,
-
+		x: 0,
 		transition: {
-			duration: 1,
+			duration: 0.1,
 			type: "spring",
-			damping: 10,
-			stiffness: 50,
+			damping: 20,
+			stiffness: 120,
+		},
+	},
+	exit: {
+		opacity: 0,
+		x: -300,
+		transition: {
+			duration: 0.1,
+			type: "spring",
+			damping: 20,
+			stiffness: 120,
 		},
 	},
 };
