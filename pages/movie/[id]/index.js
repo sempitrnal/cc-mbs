@@ -1,11 +1,14 @@
+import { Spinner } from "flowbite-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { CgArrowRight, CgQuote } from "react-icons/cg";
 import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 import { SiAppletv } from "react-icons/si";
 import { fadeUp } from "../../../utils";
 export default function Movie({ movie }) {
+	const [buyTixClicked, setBuyTixClicked] = useState();
 	console.log(movie);
 	const router = useRouter();
 	return (
@@ -68,6 +71,7 @@ export default function Movie({ movie }) {
 						<motion.div className="mb-5">
 							<motion.button
 								onClick={() => {
+									setBuyTixClicked(true);
 									router.push(
 										{
 											pathname: `${movie.id}/tickets`,
@@ -80,10 +84,15 @@ export default function Movie({ movie }) {
 								transition={{ duration: 0.5 }}
 								className="flex items-center gap-3 px-5 py-2 text-lg text-white bg-black rounded-md dark:text-black dark:bg-white"
 							>
-								Buy Tickets{" "}
-								<span className="text-2xl">
-									<CgArrowRight />
-								</span>
+								{buyTixClicked ? "Loading..." : "	Buy Tickets"}
+
+								{buyTixClicked ? (
+									<Spinner color="failure" size="sm" />
+								) : (
+									<span className="text-2xl">
+										<CgArrowRight />
+									</span>
+								)}
 							</motion.button>
 						</motion.div>
 						{movie.homepage.includes("netflix") && (
