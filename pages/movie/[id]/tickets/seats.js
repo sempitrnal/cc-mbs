@@ -4,7 +4,8 @@ import { Breadcrumb } from "flowbite-react";
 import { useRouter } from "next/router";
 import { fadeUp } from "../../../../utils";
 import FormProgress from "../../../../components/FormProgress";
-export default function Seats() {
+import Image from "next/image";
+export default function Seats({ movie }) {
 	const router = useRouter();
 	const l = router.asPath.split("/");
 
@@ -27,6 +28,22 @@ export default function Seats() {
 						>
 							Date and time
 						</div>
+						<Breadcrumb.Item></Breadcrumb.Item>
+						<div
+							className="flex items-center text-sm font-medium text-gray-700 cursor-pointer hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+							href=""
+							onClick={() =>
+								router.push(
+									{
+										pathname: l.slice(0, l.length - 1).join("/") + "/quantity",
+									},
+									undefined,
+									{ scroll: false }
+								)
+							}
+						>
+							Quantity
+						</div>
 						<Breadcrumb.Item href="">Seats</Breadcrumb.Item>
 						<Breadcrumb.Item>Add-ons</Breadcrumb.Item>
 						<Breadcrumb.Item>Payment</Breadcrumb.Item>
@@ -39,8 +56,16 @@ export default function Seats() {
 				variants={fadeUp}
 				className=""
 			>
-				<div className="pt-[10rem]">
-					<h1 className="text-6xl font-bold">u gay</h1>
+				<h1 className="text-3xl font-bold pt-[10rem]">Select Seats</h1>
+				<div className="flex items-center justify-center">
+					<div className=" w-[50rem] h-[30rem] bg-neutral-100 rounded-md flex flex-col items-center relative">
+						<div className="absolute top-0">
+							<div className="w-[25rem] h-[4rem] relative">
+								<Image src="/SeatScreen.png" layout="fill" alt="SeatScreen" />
+							</div>
+						</div>
+						<p className="z-10 mt-10 font-semibold uppercase">Screen</p>
+					</div>
 				</div>
 			</motion.div>
 		</div>
@@ -48,8 +73,15 @@ export default function Seats() {
 }
 
 export async function getServerSideProps(context) {
-	console.log(context);
+	const { query } = context;
+	const response = await fetch(
+		`https://api.themoviedb.org/3/movie/${query.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`
+	);
+	const data = await response.json();
+
 	return {
-		props: {},
+		props: {
+			movie: data,
+		},
 	};
 }
