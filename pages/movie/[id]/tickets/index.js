@@ -1,5 +1,4 @@
 import { Breadcrumb } from "flowbite-react";
-import { Splide, SplideSlide } from "@splidejs/react-splide";
 import DateBox from "../../../../components/DateBox";
 import { useStateContext } from "../../../../context/context";
 import { AnimatePresence, motion } from "framer-motion";
@@ -11,16 +10,24 @@ import Image from "next/image";
 import { FaQuoteLeft } from "react-icons/fa";
 import { useRouter } from "next/router";
 import FormProgress from "../../../../components/FormProgress";
+import { useEffect } from "react";
 export default function Tickets({ movie }) {
 	const {
 		availDates,
 		selectedCinema,
 		selectedDate,
+		setSelectedDate,
+		setSelectedCinema,
 		selectedTime,
 		setSelectedTime,
+		isDateClicked,
 	} = useStateContext();
 	const cinemas = [1, 2, 3];
 	const router = useRouter();
+	useEffect(() => {
+		setSelectedDate("");
+		setSelectedCinema("");
+	}, []);
 	return (
 		<div className=" py-[8rem] px-[1rem] lg:px-[5rem] min-h-screen">
 			<FormProgress>
@@ -30,6 +37,7 @@ export default function Tickets({ movie }) {
 					<Breadcrumb.Item className="text-[.1rem]" href="">
 						Date and time
 					</Breadcrumb.Item>
+					<Breadcrumb.Item>Quantity</Breadcrumb.Item>
 					<Breadcrumb.Item>Seats</Breadcrumb.Item>
 					<Breadcrumb.Item>Add-ons</Breadcrumb.Item>
 					<Breadcrumb.Item>Payment</Breadcrumb.Item>
@@ -42,7 +50,10 @@ export default function Tickets({ movie }) {
 				variants={fadeUp}
 				className="gap-32 pt-[10rem] lg:flex"
 			>
-				<motion.div layout className="basis-[850px]">
+				<motion.div
+					layout
+					className="transition-all duration-300 basis-[850px] 3xl:basis-[1200px]"
+				>
 					{cinemas.map((e, i) => {
 						return (
 							<motion.div layout className="pt-10" key={i}>
@@ -64,7 +75,7 @@ export default function Tickets({ movie }) {
 									</Swiper>
 								</motion.div>
 								<AnimatePresence>
-									{selectedDate && selectedCinema === e && (
+									{selectedDate && selectedCinema === e && isDateClicked && (
 										<motion.div
 											layout
 											initial={{ opacity: 0 }}
@@ -77,8 +88,12 @@ export default function Tickets({ movie }) {
 														layout
 														onClick={() => {
 															setSelectedTime(e);
+															localStorage.setItem(
+																"selectedTime",
+																JSON.stringify(e)
+															);
 															router.push(
-																`/movie/${movie.id}/tickets/seats`,
+																`/movie/${movie.id}/tickets/quantity`,
 																undefined,
 																{ scroll: false }
 															);
