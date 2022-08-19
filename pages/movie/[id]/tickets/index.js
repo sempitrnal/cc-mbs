@@ -120,12 +120,17 @@ export default function Tickets({ movie }) {
 					<p className="mb-5 text-2xl font-semibold">{movie.original_title}</p>
 					<div className="relative w-[300px] h-[400px] overflow-hidden rounded-lg mb-5">
 						<Image
-							src={`${process.env.NEXT_PUBLIC_TMDB_MOVIE_IMAGE_URL}${movie.poster_path} `}
+							className=""
 							layout="fill"
+							quality="1"
 							objectFit="cover"
-							objectPosition="bottom"
-							alt={movie.original_title}
-						/>
+							style={{
+								filter: "contrast(1.3)",
+								zIndex: -1,
+							}}
+							src={`${process.env.NEXT_PUBLIC_TMDB_MOVIE_IMAGE_URL}${movie.poster_path}`}
+							alt=""
+						></Image>
 					</div>
 					<p className="flex justify-center gap-2 text-xl italic text-center text-gray-300">
 						<span className="text-sm">
