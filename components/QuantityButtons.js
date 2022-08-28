@@ -7,7 +7,7 @@ export default function QuantityButtons() {
 	return (
 		<div className="flex h-max">
 			<div
-				className={`text-sm border p-1 border-t border-b border-l  rounded-tl-md rounded-bl-md  ${
+				className={`text-lg border p-2 border-t border-b border-l  rounded-tl-md rounded-bl-md  ${
 					quantity === 0
 						? "text-gray-400  "
 						: "hover:bg-gray-100 transition duration-300"
@@ -17,7 +17,7 @@ export default function QuantityButtons() {
 				<FaMinus />
 			</div>{" "}
 			<div
-				className="p-1 text-sm transition duration-300 border-t border-b border-r rounded-tr-md rounded-br-md hover:bg-gray-100 "
+				className="p-2 text-lg transition duration-300 border-t border-b border-r rounded-tr-md rounded-br-md hover:bg-gray-100 "
 				onClick={() => increaseQuantity()}
 			>
 				<FaPlus />
