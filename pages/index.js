@@ -46,7 +46,7 @@ function MovieList({
 				autoplay={{
 					delay: 1500,
 					disableOnInteraction: false,
-					pauseOnMouseEnter: false,
+					pauseOnMouseEnter: true,
 				}}
 				speed={1000}
 				modules={[Pagination, Autoplay]}
@@ -119,7 +119,7 @@ export default MovieList;
 
 export async function getStaticProps() {
 	const response = await fetch(
-		`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}`
+		`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.TMDB_API_KEY}`
 	);
 	const data = await response.json();
 
@@ -151,9 +151,10 @@ export async function getStaticProps() {
 	);
 
 	const upcoming_response = await fetch(
-		`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.TMDB_API_KEY}`
+		`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.TMDB_API_KEY}&page=1`
 	);
 	const upcoming_data = await upcoming_response.json();
+	console.log(upcoming_data);
 	const upcoming_deets = await Promise.all(
 		upcoming_data.results.map(async (e) => {
 			try {

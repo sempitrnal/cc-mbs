@@ -61,7 +61,9 @@ export default function Nav() {
 		<nav
 			className={`flex  items-center fixed text-white top-0 py-2 left-0 right-0 z-50 px-[1rem] lg:px-[5rem]   transition-colors duration-300  ease-in-out ${
 				scrollY > 500 ? "text-white bg-[#000000]" : ""
-			} justify-between ${router.route !== "/" ? "bg-black" : ""}`}
+			} justify-between ${
+				router.route !== "/" && router.route !== "/promos" ? "bg-black" : ""
+			}`}
 		>
 			<div
 				className={`fixed overflow-hidden lg:hidden left-0 right-0 bg-black -z-10 bottom-[35rem] transition-all duration-300 ease-in-out ${
@@ -83,22 +85,22 @@ export default function Nav() {
 					}`}
 				>
 					<div className="cursor-pointer ">
-						<Link href={"/"}>
+						<Link href={"/"} scroll={false}>
 							<p>Home </p>
 						</Link>
 					</div>
 					<div className="cursor-pointer ">
-						<Link href={"/"}>
+						<Link href={"/"} scroll={false}>
 							<p>Movies</p>
 						</Link>
 					</div>
 					<div className="cursor-pointer ">
-						<Link href={"/hello"}>
+						<Link href={"/hello"} scroll={false}>
 							<p>Schedule</p>
 						</Link>
 					</div>
 					<div className="cursor-pointer ">
-						<Link href={"/"}>
+						<Link href={"/promos"} scroll={false}>
 							<p>Promos</p>
 						</Link>
 					</div>

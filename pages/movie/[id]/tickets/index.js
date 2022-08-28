@@ -48,7 +48,7 @@ export default function Tickets({ movie }) {
 				initial="initial"
 				animate="animate"
 				variants={fadeUp}
-				className="gap-32 pt-[10rem] lg:flex"
+				className="gap-32 lg:flex"
 			>
 				<motion.div
 					layout

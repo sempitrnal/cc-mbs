@@ -25,7 +25,7 @@ export default function Quantity({ movie }) {
 		setQuantity(0);
 	}, []);
 	return (
-		<div className="py-[8rem] px-[1rem] lg:px-[5rem] min-h-screen">
+		<div className="py-[10rem] px-[1rem] lg:px-[5rem] min-h-screen">
 			<FormProgress>
 				<h1 className="mb-5 text-5xl font-semibold">Tickets</h1>
 				<Breadcrumb className="px-5 py-3 mb-5 rounded-lg bg-gray-50 dark:bg-gray-900">
@@ -53,7 +53,7 @@ export default function Quantity({ movie }) {
 				initial="initial"
 				animate="animate"
 				variants={fadeUp}
-				className="pt-[10rem]"
+				className="pt-12"
 			>
 				<BookingDetails movie={movie} date={date} />
 				<div className="flex items-center justify-center gap-10 mb-10">
@@ -67,10 +67,10 @@ export default function Quantity({ movie }) {
 						<p className="text-xs mb-1   font-[600] text-gray-400">Total</p>
 						<p className="w-20 font-semibold">₱ {total.toLocaleString()}</p>
 					</div>
-					<div className="flex items-end">
+					<div className="flex items-end justify-center gap-5">
 						<div className="">
 							<p className="text-xs font-[600] mb-1 text-gray-400">Quantity</p>
-							<p className="font-semibold ">{quantity}</p>
+							<p className="font-semibold text-center">{quantity}</p>
 						</div>
 						<QuantityButtons />
 					</div>
