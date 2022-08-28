@@ -85,22 +85,22 @@ export default function Nav() {
 					}`}
 				>
 					<div className="cursor-pointer ">
-						<Link href={"/"}>
+						<Link href={"/"} scroll={false}>
 							<p>Home </p>
 						</Link>
 					</div>
 					<div className="cursor-pointer ">
-						<Link href={"/"}>
+						<Link href={"/"} scroll={false}>
 							<p>Movies</p>
 						</Link>
 					</div>
 					<div className="cursor-pointer ">
-						<Link href={"/hello"}>
+						<Link href={"/hello"} scroll={false}>
 							<p>Schedule</p>
 						</Link>
 					</div>
 					<div className="cursor-pointer ">
-						<Link href={"/"}>
+						<Link href={"/promos"} scroll={false}>
 							<p>Promos</p>
 						</Link>
 					</div>

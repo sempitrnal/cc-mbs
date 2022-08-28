@@ -2,6 +2,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { MdCheck } from "react-icons/md";
+import { motion } from "framer-motion";
 
 export default function Promos() {
 	const subscription = [
@@ -26,7 +27,12 @@ export default function Promos() {
 		},
 	];
 	return (
-		<div className="relative min-h-screen overflow-x-hidden px-[5rem] py-[8rem] ">
+		<motion.div
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
+			className="relative min-h-screen overflow-x-hidden px-[5rem] py-[8rem] "
+		>
 			<Head>
 				<title>Cine-Cine | Promos</title>
 			</Head>
@@ -140,6 +146,6 @@ export default function Promos() {
 					})}
 				</div>
 			</div>
-		</div>
+		</motion.div>
 	);
 }
