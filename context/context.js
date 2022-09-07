@@ -6,9 +6,7 @@ const CineContext = createContext();
 export default function StateContext({ children }) {
 	const [loginPopOpen, setLoginPopOpen] = useState(false);
 	const [selectedMovieId, setSelectedMovieId] = useState();
-	const [availDates, setAvailDates] = useState(
-		avail_days(new Date().getDate())
-	);
+	const [availDates, setAvailDates] = useState(avail_days(new Date().getDate()));
 	const [selectedDate, setSelectedDate] = useState();
 	const [selectedCinema, setSelectedCinema] = useState();
 	const [selectedTime, setSelectedTime] = useState();

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Breadcrumb, Tooltip } from "flowbite-react";
 import { useRouter } from "next/router";
@@ -27,9 +27,14 @@ export default function Seats() {
 		}
 	}
 	const [seats, setSeats] = useState(seatsObj);
-	const [clicked, setClicked] = useState(false);
+
 	const { quantity, selectedSeats, setSelectedSeats } = useStateContext();
 
+	useEffect(() => {
+		let s = seats.map((e) => e.mgaSeats.filter((e) => e.selected === true));
+		let a = s.filter((e) => e.length > 0);
+		setSelectedSeats(a.flat());
+	}, [seats]);
 	return (
 		<div className=" py-[8rem] px-[1rem] lg:px-[5rem] min-h-screen ">
 			<FormProgress>
@@ -105,15 +110,16 @@ export default function Seats() {
 										//
 										return (
 											<div key={e.letter} className={`flex justify-center gap-3 mb-3 w-full`}>
-												{e.mgaSeats.map(({ seat }, i) => {
+												{e.mgaSeats.map(({ seat, selected }, i) => {
 													return (
 														<Tooltip key={i} content={seat} className="bg-red-500">
 															<div
 																onClick={() => {
 																	let selected;
-																	let ambot;
-																	let oten;
+																	let newObj;
+																	let seatObjIndex;
 																	let bitch;
+
 																	setSeats((prevSeats) => {
 																		prevSeats.map((yawerd) => {
 																			yawerd.mgaSeats.find((finddis) => finddis.seat === seat)
@@ -121,31 +127,40 @@ export default function Seats() {
 																				: null;
 																		});
 
-																		oten = selected.mgaSeats.findIndex((e) => e.seat === seat);
+																		seatObjIndex = selected.mgaSeats.findIndex(
+																			(e) => e.seat === seat
+																		);
 																		selected = seats.findIndex((e) => e === selected);
-																		ambot = {
+																		newObj = {
 																			...prevSeats[selected],
 																			mgaSeats: [
-																				...prevSeats[selected].mgaSeats.slice(0, oten),
+																				...prevSeats[selected].mgaSeats.slice(0, seatObjIndex),
 																				Object.assign(
 																					{},
-																					{ ...prevSeats[selected].mgaSeats[oten] },
+																					{ ...prevSeats[selected].mgaSeats[seatObjIndex] },
 																					{
-																						...prevSeats[selected].mgaSeats[oten],
-																						selected: !prevSeats[selected].mgaSeats[oten].selected,
+																						...prevSeats[selected].mgaSeats[seatObjIndex],
+																						selected:
+																							!prevSeats[selected].mgaSeats[seatObjIndex].selected,
 																					}
 																				),
-																				...prevSeats[selected].mgaSeats.slice(oten + 1),
+																				...prevSeats[selected].mgaSeats.slice(seatObjIndex + 1),
 																			],
 																		};
-																		return [...prevSeats];
+
+																		return prevSeats.map((e) => {
+																			if (e.letter === newObj.letter) {
+																				return newObj;
+																			}
+																			return e;
+																		});
 																	});
 
-																	console.log(ambot);
+																	console.log(newObj);
 																}}
 																className={`flex items-center justify-center w-10 h-10 transition duration-300 rounded-lg cursor-pointer ${
-																	clicked ? "bg-[#e23a3a]" : "bg-neutral-300"
-																} hover:opacity-90 ${
+																	selected ? "bg-[#e23a3a] text-white" : " bg-neutral-300"
+																}  hover:opacity-90 ${
 																	seat === "B2" ||
 																	seat === "B9" ||
 																	seat === "C2" ||
