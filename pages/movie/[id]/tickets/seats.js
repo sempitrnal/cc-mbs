@@ -32,8 +32,7 @@ export default function Seats() {
 
 	useEffect(() => {
 		let s = seats.map((e) => e.mgaSeats.filter((e) => e.selected === true));
-		let a = s.filter((e) => e.length > 0);
-		setSelectedSeats(a.flat());
+		setSelectedSeats(s.flat());
 	}, [seats]);
 
 	return (
