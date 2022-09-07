@@ -12,12 +12,14 @@ export default function StateContext({ children }) {
 	const [selectedTime, setSelectedTime] = useState();
 	const [selectedSeats, setSelectedSeats] = useState();
 	const [isDateClicked, setIsDateClicked] = useState(false);
+	const [quantity, setQuantity] = useState(0);
 	useEffect(() => {
 		setSelectedDate(JSON.parse(localStorage.getItem("selectedDate")));
 		setSelectedCinema(JSON.parse(localStorage.getItem("selectedCinema")));
 		setSelectedTime(JSON.parse(localStorage.getItem("selectedTime")));
+		setQuantity(JSON.parse(localStorage.getItem("ticketQuantity")));
 	}, []);
-	const [quantity, setQuantity] = useState(0);
+
 	const increaseQuantity = () => {
 		setQuantity((prev) => prev + 1);
 	};
