@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Breadcrumb, Tooltip } from "flowbite-react";
 import { useRouter } from "next/router";
 import { fadeUp } from "../../../../utils";
@@ -27,7 +27,7 @@ export default function Seats() {
 		}
 	}
 	const [seats, setSeats] = useState(seatsObj);
-
+	const [selectedMore, setSelectedMore] = useState(false);
 	const { quantity, selectedSeats, setSelectedSeats } = useStateContext();
 
 	useEffect(() => {
@@ -35,6 +35,7 @@ export default function Seats() {
 		let a = s.filter((e) => e.length > 0);
 		setSelectedSeats(a.flat());
 	}, [seats]);
+
 	return (
 		<div className=" py-[8rem] px-[1rem] lg:px-[5rem] min-h-screen ">
 			<FormProgress>
@@ -74,6 +75,45 @@ export default function Seats() {
 			</FormProgress>
 
 			<motion.div initial="initial" animate="animate" variants={fadeUp} className="">
+				<AnimatePresence>
+					{selectedMore && (
+						<motion.div
+							onClick={() => setSelectedMore(!selectedMore)}
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							className="backdrop fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-[#00000053]"
+						>
+							<motion.div
+								onClick={(e) => e.stopPropagation()}
+								initial={{ scale: 0 }}
+								animate={{ scale: 1 }}
+								exit={{ scale: 0, opacity: 0 }}
+								className="w-[40rem] h-[15rem] bg-white rounded-2xl flex justify-center items-center  flex-col  "
+							>
+								<h1 className="text-2xl text-[#3c3c3c] mb-2">
+									You already selected {quantity} seats!
+								</h1>
+								<div className="flex gap-2 mb-7">
+									Seats:
+									{selectedSeats.map((e) => (
+										<p className="font-semibold" key={e.seat}>
+											{e.seat}
+										</p>
+									))}
+								</div>
+								<button
+									onClick={(e) => {
+										setSelectedMore(!selectedMore);
+									}}
+									className="px-5 py-1 font-semibold text-white transition-opacity duration-300 bg-black rounded-lg w-max hover:opacity-70"
+								>
+									OK
+								</button>
+							</motion.div>
+						</motion.div>
+					)}
+				</AnimatePresence>
 				<h1 className="my-10 text-3xl font-bold">
 					Select {quantity} {quantity > 1 ? "seats" : "seat"}
 				</h1>
@@ -159,6 +199,7 @@ export default function Seats() {
 																				],
 																			};
 																		} else {
+																			setSelectedMore(true);
 																			newObj = newObj = {
 																				...prevSeats[selected],
 																			};
