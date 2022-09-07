@@ -34,11 +34,9 @@ export default function Quantity({ movie }) {
 						className="flex items-center text-sm font-medium text-gray-700 cursor-pointer hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
 						href=""
 						onClick={() =>
-							router.push(
-								{ pathname: l.slice(0, l.length - 1).join("/") },
-								undefined,
-								{ scroll: false }
-							)
+							router.push({ pathname: l.slice(0, l.length - 1).join("/") }, undefined, {
+								scroll: false,
+							})
 						}
 					>
 						Date and time
@@ -50,18 +48,11 @@ export default function Quantity({ movie }) {
 				</Breadcrumb>
 			</FormProgress>
 
-			<motion.div
-				initial="initial"
-				animate="animate"
-				variants={fadeUp}
-				className="pt-12"
-			>
+			<motion.div initial="initial" animate="animate" variants={fadeUp} className="pt-12">
 				<BookingDetails movie={movie} date={date} />
 				<div className="flex items-center justify-center gap-10 mb-10">
 					<div className="">
-						<p className="text-xs mb-1   font-[600] text-gray-400">
-							Ticket Price
-						</p>
+						<p className="text-xs mb-1   font-[600] text-gray-400">Ticket Price</p>
 						<p className="w-20 font-semibold">₱ 290</p>
 					</div>
 					<div className="">
@@ -80,7 +71,9 @@ export default function Quantity({ movie }) {
 					<button
 						onClick={() => {
 							quantity > 0
-								? (router.push(`${nextPath}/seats`), setClicked(!clicked))
+								? (router.push(`${nextPath}/seats`),
+								  setClicked(!clicked),
+								  localStorage.setItem("ticketQuantity", JSON.stringify(quantity)))
 								: null;
 						}}
 						className={`px-10 py-2 text-white transition-all w-40 h-12 text-center cursor-pointer duration-200 rounded-lg  ${

@@ -74,7 +74,9 @@ export default function Seats() {
 			</FormProgress>
 
 			<motion.div initial="initial" animate="animate" variants={fadeUp} className="">
-				<h1 className="my-10 text-3xl font-bold">Select Seats</h1>
+				<h1 className="my-10 text-3xl font-bold">
+					Select {quantity} {quantity > 1 ? "seats" : "seat"}
+				</h1>
 				<div className="flex items-center justify-center">
 					<div className=" w-[60rem] h-[40rem] bg-neutral-100 rounded-md flex flex-col items-center relative">
 						<div className="absolute left-8	 flex flex-col font-bold opacity-30 gap-7 top-[12rem]">
@@ -118,12 +120,11 @@ export default function Seats() {
 																	let selected;
 																	let newObj;
 																	let seatObjIndex;
-																	let bitch;
 
 																	setSeats((prevSeats) => {
-																		prevSeats.map((yawerd) => {
-																			yawerd.mgaSeats.find((finddis) => finddis.seat === seat)
-																				? ((selected = yawerd), (bitch = yawerd))
+																		prevSeats.map((seats) => {
+																			seats.mgaSeats.find((finddis) => finddis.seat === seat)
+																				? (selected = seats)
 																				: null;
 																		});
 
@@ -131,22 +132,37 @@ export default function Seats() {
 																			(e) => e.seat === seat
 																		);
 																		selected = seats.findIndex((e) => e === selected);
-																		newObj = {
-																			...prevSeats[selected],
-																			mgaSeats: [
-																				...prevSeats[selected].mgaSeats.slice(0, seatObjIndex),
-																				Object.assign(
-																					{},
-																					{ ...prevSeats[selected].mgaSeats[seatObjIndex] },
-																					{
-																						...prevSeats[selected].mgaSeats[seatObjIndex],
-																						selected:
-																							!prevSeats[selected].mgaSeats[seatObjIndex].selected,
-																					}
-																				),
-																				...prevSeats[selected].mgaSeats.slice(seatObjIndex + 1),
-																			],
-																		};
+																		if (
+																			selectedSeats.length < quantity ||
+																			(selectedSeats.length === quantity &&
+																				selectedSeats.find(
+																					(e) =>
+																						e.seat ===
+																						prevSeats[selected].mgaSeats[seatObjIndex].seat
+																				))
+																		) {
+																			newObj = {
+																				...prevSeats[selected],
+																				mgaSeats: [
+																					...prevSeats[selected].mgaSeats.slice(0, seatObjIndex),
+																					Object.assign(
+																						{},
+																						{ ...prevSeats[selected].mgaSeats[seatObjIndex] },
+																						{
+																							...prevSeats[selected].mgaSeats[seatObjIndex],
+																							selected:
+																								!prevSeats[selected].mgaSeats[seatObjIndex]
+																									.selected,
+																						}
+																					),
+																					...prevSeats[selected].mgaSeats.slice(seatObjIndex + 1),
+																				],
+																			};
+																		} else {
+																			newObj = newObj = {
+																				...prevSeats[selected],
+																			};
+																		}
 
 																		return prevSeats.map((e) => {
 																			if (e.letter === newObj.letter) {
