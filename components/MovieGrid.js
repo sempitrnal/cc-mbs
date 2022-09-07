@@ -1,7 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
+import { Spinner } from "flowbite-react";
+import { useRouter } from "next/router";
+
 export default function MovieGrid({ e, isUpcoming, upcoming_deets }) {
+	const [clicked, setClicked] = useState(false);
+	const router = useRouter();
 	const fadeUp = {
 		initial: {
 			opacity: 0,
@@ -40,20 +46,38 @@ export default function MovieGrid({ e, isUpcoming, upcoming_deets }) {
 	};
 	return (
 		<motion.div layout className="w-full rounded-lg" key={e.id}>
-			<Link href={`movie/${e.id}`} scroll={false}>
+			<div
+				onClick={() => {
+					router.push(`movie/${e.id}`, undefined, { scroll: false });
+					setClicked(!clicked);
+				}}
+			>
 				<div className="overflow-hidden rounded-xl ">
-					<motion.div layout className="movie hover:scale-105">
+					<motion.div
+						layout
+						className={`movie hover:scale-105  ${
+							clicked ? "opacity-30 hover:opacity-30" : ""
+						} `}
+					>
+						{clicked && (
+							<div
+								className={` absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] `}
+							>
+								<Spinner size="xl" color="failure" />
+							</div>
+						)}
 						<AnimatePresence>
 							{isUpcoming && (
 								<motion.div
 									variants={slideRight}
-									className="float-right px-3 text-white bg-red-600 text-end  rounded-l-lg text-[.7rem]"
+									className={`float-right px-3 text-white bg-red-600 text-end  rounded-l-lg text-[.7rem]`}
 								>
 									{upcoming_deets.release_date}
 								</motion.div>
 							)}
 						</AnimatePresence>
 						<Image
+							loading="lazy"
 							className=""
 							layout="fill"
 							quality="1"
@@ -67,7 +91,7 @@ export default function MovieGrid({ e, isUpcoming, upcoming_deets }) {
 						></Image>
 					</motion.div>
 				</div>
-			</Link>
+			</div>
 			<div className="flex justify-center mt-5 text-[#333]">
 				<p className="w-40 text-xl font-semibold text-center transition duration-200 ease-in-out dark:text-white">
 					{e.original_title}

@@ -1,6 +1,6 @@
-import { Breadcrumb } from "flowbite-react";
+import { Breadcrumb, Spinner } from "flowbite-react";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import FormProgress from "../../../../components/FormProgress";
 import { motion } from "framer-motion";
 import { fadeUp } from "../../../../utils";
@@ -10,6 +10,7 @@ import BookingDetails from "../../../../components/BookingDetails";
 import QuantityButtons from "../../../../components/QuantityButtons";
 
 export default function Quantity({ movie }) {
+	const [clicked, setClicked] = useState(false);
 	const {
 		quantity,
 		total,
@@ -78,15 +79,17 @@ export default function Quantity({ movie }) {
 				<div className="flex justify-center w-full">
 					<button
 						onClick={() => {
-							quantity > 0 ? router.push(`${nextPath}/seats`) : null;
-						}}
-						className={`px-10 py-2 text-white transition-all duration-200 rounded-lg hover:opacity-90 ${
 							quantity > 0
-								? "cursor-pointer bg-black"
-								: "cursor-default bg-neutral-300"
+								? (router.push(`${nextPath}/seats`), setClicked(!clicked))
+								: null;
+						}}
+						className={`px-10 py-2 text-white transition-all w-40 h-12 text-center cursor-pointer duration-200 rounded-lg  ${
+							quantity > 0
+								? "cursor-pointer bg-black hover:opacity-90"
+								: "cursor-default bg-neutral-500"
 						}`}
 					>
-						Next
+						{quantity > 0 && clicked ? <Spinner color="failure" /> : "Next"}
 					</button>
 				</div>
 			</motion.div>
