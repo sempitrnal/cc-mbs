@@ -12,6 +12,9 @@
 .fill-red-600 {
 	fill: #2e2e2e;
 }
+.bg-gray-900 {
+	background-color: #e23a3a;
+}
 @layer components {
 	.movie-grid-tabs-wrapper {
 		@apply flex px-[1rem] text-center md:text-start  lg:px-[5rem] py-[4.5rem] text-lg lg:text-3xl font-semibold lg:gap-5 transition-all duration-150 gap-2;

@@ -12,6 +12,7 @@ export default function StateContext({ children }) {
 	const [selectedDate, setSelectedDate] = useState();
 	const [selectedCinema, setSelectedCinema] = useState();
 	const [selectedTime, setSelectedTime] = useState();
+	const [selectedSeats, setSelectedSeats] = useState();
 	const [isDateClicked, setIsDateClicked] = useState(false);
 	useEffect(() => {
 		setSelectedDate(JSON.parse(localStorage.getItem("selectedDate")));
@@ -47,6 +48,8 @@ export default function StateContext({ children }) {
 				increaseQuantity,
 				decreaseQuantity,
 				total,
+				selectedSeats,
+				setSelectedSeats,
 			}}
 		>
 			{children}

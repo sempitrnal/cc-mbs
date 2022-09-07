@@ -16,3 +16,5 @@ function string_to_slug(str) {
 
 	return str;
 }
+
+seats;
