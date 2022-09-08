@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Breadcrumb, Tooltip } from "flowbite-react";
+import { Breadcrumb, Spinner, Tooltip } from "flowbite-react";
 import { useRouter } from "next/router";
 import { fadeUp } from "../../../../utils";
 import FormProgress from "../../../../components/FormProgress";
 import Image from "next/image";
 import { MdChairAlt } from "react-icons/md";
 import { useStateContext } from "../../../../context/context";
-export default function Seats() {
+export default function Seats({ movie }) {
 	const router = useRouter();
 	const l = router.asPath.split("/");
 	const seatsObj = [];
@@ -29,7 +29,7 @@ export default function Seats() {
 	const [seats, setSeats] = useState(seatsObj);
 	const [selectedMore, setSelectedMore] = useState(false);
 	const { quantity, selectedSeats, setSelectedSeats } = useStateContext();
-
+	const [proceed, setProceed] = useState(false);
 	useEffect(() => {
 		let s = seats.map((e) => e.mgaSeats.filter((e) => e.selected === true));
 		setSelectedSeats(s.flat());
@@ -91,10 +91,10 @@ export default function Seats() {
 								className="w-[40rem] h-[15rem] bg-white rounded-2xl flex justify-center items-center  flex-col  "
 							>
 								<h1 className="text-2xl text-[#3c3c3c] mb-2">
-									You already selected {quantity} seats!
+									You already selected {quantity} {quantity > 1 ? "seats" : "seat"}!
 								</h1>
 								<div className="flex gap-2 mb-7">
-									Seats:
+									{quantity > 1 ? "Seats" : "Seat"}:
 									{selectedSeats.map((e) => (
 										<p className="font-semibold" key={e.seat}>
 											{e.seat}
@@ -230,8 +230,10 @@ export default function Seats() {
 																		console.log(newObj);
 																	}}
 																	className={`flex items-center justify-center w-10 h-10 transition duration-300 rounded-lg cursor-pointer ${
-																		selected ? "bg-[#e23a3a] text-white" : " bg-neutral-300"
-																	}  hover:opacity-90 `}
+																		selected
+																			? "bg-[#e23a3a] text-white hover:opacity-90"
+																			: " bg-neutral-300 hover:bg-[rgb(185,185,185)]"
+																	}   `}
 																>
 																	<div className="text-xl">
 																		<MdChairAlt />
@@ -246,6 +248,30 @@ export default function Seats() {
 									})}
 								</div>
 							</div>
+							<button
+								onClick={() => {
+									selectedSeats.length === quantity ? setProceed(true) : null;
+									router.push(`/movie/${movie.id}/tickets/addons`, undefined, {
+										scroll: false,
+									});
+								}}
+								className={`w-[8rem] h-[3rem] mt-5 text-white transition ${
+									selectedSeats && selectedSeats.length === quantity
+										? "bg-black hover:bg-neutral-800 "
+										: "bg-neutral-400 cursor-default"
+								} rounded-md max-w`}
+							>
+								{proceed ? (
+									<div className="flex items-center justify-center gap-3">
+										<div className="-translate-y-[7%]">
+											<Spinner size="sm" color="failure" />
+										</div>
+										Loading...
+									</div>
+								) : (
+									"Proceed"
+								)}
+							</button>
 						</div>
 						<p className="z-10 mt-16 font-semibold uppercase">Screen</p>
 					</div>
