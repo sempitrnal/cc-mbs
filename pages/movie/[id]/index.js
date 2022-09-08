@@ -6,6 +6,7 @@ import { useState } from "react";
 import { CgArrowRight, CgQuote } from "react-icons/cg";
 import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 import { SiAppletv } from "react-icons/si";
+import Header from "../../../components/Head";
 import { fadeUp } from "../../../utils";
 export default function Movie({ movie }) {
 	const [buyTixClicked, setBuyTixClicked] = useState();
@@ -19,6 +20,7 @@ export default function Movie({ movie }) {
 			variants={fadeUp}
 			className="flex items-center min-h-screen "
 		>
+			<Header title={movie.title} content={movie.overview} />
 			<div className="flex flex-col lg:grid lg:grid-cols-2 lg:mr-5 py-[8rem] lg:py-[12rem] items-center place-items-center">
 				<div className="relative overflow-hidden rounded-xl w-[250px] h-[350px] lg:w-[350px] lg:h-[450px] xl:w-[500px] xl:h-[600px] transition-all duration-300">
 					<Image
