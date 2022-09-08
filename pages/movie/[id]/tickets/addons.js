@@ -11,10 +11,13 @@ import { drinks } from "../../../../utils/food";
 import { FiShoppingCart } from "react-icons/fi";
 import FoodBox from "../../../../components/FoodBox";
 import "swiper/css";
+import DrinkBox from "../../../../components/DrinkBox";
 export default function Seats() {
 	const router = useRouter();
 	const l = router.asPath.split("/");
 	let title = "Tickets | Addons";
+	const [foodz, setFood] = useState(food);
+	const [bev, setBev] = useState(drinks);
 	return (
 		<div className=" py-[8rem] px-[1rem] lg:px-[5rem] min-h-screen ">
 			<Header title={title} />
@@ -80,10 +83,13 @@ export default function Seats() {
 					<h2 className="mb-1 text-3xl">Snacks</h2>
 					<div className="w-[100%] h-[2px] bg-neutral-800 mb-10"></div>
 					<Swiper width="150" spaceBetween={50} className="mb-10">
-						{food.map((e) => {
+						{foodz.map((e) => {
 							return (
 								<SwiperSlide key={e.id}>
 									<FoodBox
+										foodz={foodz}
+										id={e.id}
+										setFood={setFood}
 										name={e.name}
 										price={e.price ? e.price : null}
 										sizes={e.sizes ? e.sizes : null}
@@ -96,10 +102,13 @@ export default function Seats() {
 					<h2 className="mb-1 text-3xl">Beverages</h2>
 					<div className="w-[100%] h-[2px] bg-neutral-800 mb-10"></div>
 					<Swiper width="150" spaceBetween={50}>
-						{drinks.map((e) => {
+						{bev.map((e) => {
 							return (
 								<SwiperSlide key={e.id}>
-									<FoodBox
+									<DrinkBox
+										id={e.id}
+										bev={bev}
+										setBev={setBev}
 										name={e.name}
 										price={e.price ? e.price : null}
 										sizes={e.sizes ? e.sizes : null}
@@ -114,6 +123,8 @@ export default function Seats() {
 					<div className="absolute p-8 text-3xl bg-white border rounded-full -top-10">
 						<FiShoppingCart />
 					</div>
+
+					<h2 className="text-2xl font-semibold text-white uppercase mt-28">Order Summary</h2>
 				</div>
 			</motion.div>
 		</div>
