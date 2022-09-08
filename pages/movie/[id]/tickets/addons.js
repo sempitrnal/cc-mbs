@@ -4,14 +4,20 @@ import { Breadcrumb, Spinner, Tooltip } from "flowbite-react";
 import { useRouter } from "next/router";
 import { fadeUp } from "../../../../utils";
 import FormProgress from "../../../../components/FormProgress";
-import Image from "next/image";
-import { MdChairAlt } from "react-icons/md";
-import { useStateContext } from "../../../../context/context";
+import Header from "../../../../components/Head";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { food } from "../../../../utils/food";
+import { drinks } from "../../../../utils/food";
+import { FiShoppingCart } from "react-icons/fi";
+import FoodBox from "../../../../components/FoodBox";
+import "swiper/css";
 export default function Seats() {
 	const router = useRouter();
 	const l = router.asPath.split("/");
+	let title = "Tickets | Addons";
 	return (
 		<div className=" py-[8rem] px-[1rem] lg:px-[5rem] min-h-screen ">
+			<Header title={title} />
 			<FormProgress>
 				<h1 className="mb-5 text-5xl font-semibold">Tickets</h1>
 				<Breadcrumb className="px-5 py-3 mb-5 rounded-lg bg-gray-50 dark:bg-gray-900">
@@ -64,8 +70,51 @@ export default function Seats() {
 				</Breadcrumb>
 			</FormProgress>
 
-			<motion.div initial="initial" animate="animate" variants={fadeUp} className="">
-				<h1 className="font-semibold text-7xl">OTen</h1>
+			<motion.div
+				initial="initial"
+				animate="animate"
+				variants={fadeUp}
+				className="flex items-center gap-14"
+			>
+				<div className=" basis-[3500px]">
+					<h2 className="mb-1 text-3xl">Snacks</h2>
+					<div className="w-[100%] h-[2px] bg-neutral-800 mb-10"></div>
+					<Swiper width="150" spaceBetween={50} className="mb-10">
+						{food.map((e) => {
+							return (
+								<SwiperSlide key={e.id}>
+									<FoodBox
+										name={e.name}
+										price={e.price ? e.price : null}
+										sizes={e.sizes ? e.sizes : null}
+										img={e.img}
+									/>
+								</SwiperSlide>
+							);
+						})}
+					</Swiper>
+					<h2 className="mb-1 text-3xl">Beverages</h2>
+					<div className="w-[100%] h-[2px] bg-neutral-800 mb-10"></div>
+					<Swiper width="150" spaceBetween={50}>
+						{drinks.map((e) => {
+							return (
+								<SwiperSlide key={e.id}>
+									<FoodBox
+										name={e.name}
+										price={e.price ? e.price : null}
+										sizes={e.sizes ? e.sizes : null}
+										img={e.img}
+									/>
+								</SwiperSlide>
+							);
+						})}
+					</Swiper>
+				</div>
+				<div className="w-full h-[80vh] bg-neutral-800 rounded-[3rem] flex justify-center relative">
+					<div className="absolute p-8 text-3xl bg-white border rounded-full -top-10">
+						<FiShoppingCart />
+					</div>
+				</div>
 			</motion.div>
 		</div>
 	);

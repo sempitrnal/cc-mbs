@@ -7,6 +7,7 @@ import FormProgress from "../../../../components/FormProgress";
 import Image from "next/image";
 import { MdChairAlt } from "react-icons/md";
 import { useStateContext } from "../../../../context/context";
+import Header from "../../../../components/Head";
 export default function Seats({ movie }) {
 	const router = useRouter();
 	const l = router.asPath.split("/");
@@ -34,9 +35,10 @@ export default function Seats({ movie }) {
 		let s = seats.map((e) => e.mgaSeats.filter((e) => e.selected === true));
 		setSelectedSeats(s.flat());
 	}, [seats]);
-
+	let title = "Tickets | Seats";
 	return (
 		<div className=" py-[8rem] px-[1rem] lg:px-[5rem] min-h-screen ">
+			<Header title={title} />
 			<FormProgress>
 				<h1 className="mb-5 text-5xl font-semibold">Tickets</h1>
 				<Breadcrumb className="px-5 py-3 mb-5 rounded-lg bg-gray-50 dark:bg-gray-900">
@@ -93,7 +95,7 @@ export default function Seats({ movie }) {
 								<h1 className="text-2xl text-[#3c3c3c] mb-2">
 									You already selected {quantity} {quantity > 1 ? "seats" : "seat"}!
 								</h1>
-								<div className="flex gap-2 mb-7">
+								<div className="flex gap-2 mb-2">
 									{quantity > 1 ? "Seats" : "Seat"}:
 									{selectedSeats.map((e) => (
 										<p className="font-semibold" key={e.seat}>
@@ -101,6 +103,11 @@ export default function Seats({ movie }) {
 										</p>
 									))}
 								</div>
+								<p className="mb-5 text-xs font-semibold text-neutral-400">
+									{quantity > 1
+										? "If you want to change seats, deselect the seats you selected first."
+										: "If you want to change your seat, deselect the seat you selected first."}
+								</p>
 								<button
 									onClick={(e) => {
 										setSelectedMore(!selectedMore);
@@ -113,11 +120,12 @@ export default function Seats({ movie }) {
 						</motion.div>
 					)}
 				</AnimatePresence>
-				<h1 className="my-10 text-3xl font-bold">
-					Select {quantity} {quantity > 1 ? "seats" : "seat"}
-				</h1>
+
 				<div className="flex items-center justify-center">
-					<div className=" w-[60rem] h-[40rem] bg-neutral-100 rounded-md flex flex-col items-center relative">
+					<div className="mt-10 w-[60rem] h-[40rem] bg-neutral-100 rounded-md flex flex-col items-center relative">
+						<h1 className="absolute top-[-20px] my-10 text-lg font-bold left-5 text-white bg-[#e23a3a] px-5 rounded-lg ">
+							Select {quantity} {quantity > 1 ? "seats" : "seat"}
+						</h1>
 						<div className="absolute left-8	 flex flex-col font-bold opacity-30 gap-7 top-[12rem]">
 							{letters.map((e, i) => {
 								return i > 0 ? (

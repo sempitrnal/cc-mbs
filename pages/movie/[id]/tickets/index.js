@@ -11,6 +11,7 @@ import { FaQuoteLeft } from "react-icons/fa";
 import { useRouter } from "next/router";
 import FormProgress from "../../../../components/FormProgress";
 import { useEffect } from "react";
+import Header from "../../../../components/Head";
 export default function Tickets({ movie }) {
 	const {
 		availDates,
@@ -28,8 +29,10 @@ export default function Tickets({ movie }) {
 		setSelectedDate("");
 		setSelectedCinema("");
 	}, []);
+	let title = `Tickets | Date and Time`;
 	return (
 		<div className=" py-[8rem] px-[1rem] lg:px-[5rem] min-h-screen">
+			<Header title={title} />
 			<FormProgress>
 				<h1 className="mb-5 text-5xl font-semibold">Tickets</h1>
 
@@ -44,16 +47,8 @@ export default function Tickets({ movie }) {
 				</Breadcrumb>
 			</FormProgress>
 
-			<motion.div
-				initial="initial"
-				animate="animate"
-				variants={fadeUp}
-				className="gap-32 lg:flex"
-			>
-				<motion.div
-					layout
-					className="transition-all duration-300 basis-[850px] 3xl:basis-[1200px]"
-				>
+			<motion.div initial="initial" animate="animate" variants={fadeUp} className="gap-32 lg:flex">
+				<motion.div layout className="transition-all duration-300 basis-[850px] 3xl:basis-[1200px]">
 					{cinemas.map((e, i) => {
 						return (
 							<motion.div layout className="pt-10" key={i}>
@@ -88,15 +83,10 @@ export default function Tickets({ movie }) {
 														layout
 														onClick={() => {
 															setSelectedTime(e);
-															localStorage.setItem(
-																"selectedTime",
-																JSON.stringify(e)
-															);
-															router.push(
-																`/movie/${movie.id}/tickets/quantity`,
-																undefined,
-																{ scroll: false }
-															);
+															localStorage.setItem("selectedTime", JSON.stringify(e));
+															router.push(`/movie/${movie.id}/tickets/quantity`, undefined, {
+																scroll: false,
+															});
 														}}
 														className="flex flex-col items-center overflow-hidden transition-all duration-300 border rounded-lg cursor-pointer w-max hover:shadow-md dark:border-red-600"
 														key={i}

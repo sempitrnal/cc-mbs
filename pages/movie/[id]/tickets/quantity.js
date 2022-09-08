@@ -8,6 +8,7 @@ import { useStateContext } from "../../../../context/context";
 
 import BookingDetails from "../../../../components/BookingDetails";
 import QuantityButtons from "../../../../components/QuantityButtons";
+import Header from "../../../../components/Head";
 
 export default function Quantity({ movie }) {
 	const [clicked, setClicked] = useState(false);
@@ -25,8 +26,10 @@ export default function Quantity({ movie }) {
 	useEffect(() => {
 		setQuantity(0);
 	}, []);
+	let title = "Tickets | Quantity";
 	return (
 		<div className="py-[10rem] px-[1rem] lg:px-[5rem] min-h-screen">
+			<Header title={title} />
 			<FormProgress>
 				<h1 className="mb-5 text-5xl font-semibold">Tickets</h1>
 				<Breadcrumb className="px-5 py-3 mb-5 rounded-lg bg-gray-50 dark:bg-gray-900">
