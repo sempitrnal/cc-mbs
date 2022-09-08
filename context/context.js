@@ -13,6 +13,8 @@ export default function StateContext({ children }) {
 	const [selectedSeats, setSelectedSeats] = useState();
 	const [isDateClicked, setIsDateClicked] = useState(false);
 	const [quantity, setQuantity] = useState(0);
+	const [cart, setCart] = useState();
+	const [order, setOrder] = useState();
 	useEffect(() => {
 		setSelectedDate(JSON.parse(localStorage.getItem("selectedDate")));
 		setSelectedCinema(JSON.parse(localStorage.getItem("selectedCinema")));
