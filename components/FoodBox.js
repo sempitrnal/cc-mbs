@@ -3,14 +3,19 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useStateContext } from "../context/context";
 
-export default function FoodBox({ name, price, sizes, img, setFood, id, foodz }) {
+export default function FoodBox({ name, price, sizes, img, setFood, id, foodz, setLetsGo }) {
 	let selected = sizes ? sizes.find((e) => e.selected === true) : null;
 	let foodIndex = foodz ? foodz.findIndex((e) => e.id === id) : null;
+
 	const { cart, setCart } = useStateContext();
 	const addToCart = () => {
+		if (cart.length === 1) setLetsGo(true);
+		setTimeout(() => {
+			setLetsGo(false);
+		}, 900);
 		let item = {
-			id: id,
-			item: name,
+			id: sizes ? `${id}${selected.size}` : id,
+			item: sizes ? `${name} (${selected.size})` : name,
 			price: sizes ? selected.price : price,
 			quantity: 1,
 			size: selected ? selected : null,
@@ -18,13 +23,12 @@ export default function FoodBox({ name, price, sizes, img, setFood, id, foodz })
 		let nylon;
 		let oten;
 		setCart((prev) => {
-			oten = prev.find((e) => e.id === id);
+			oten = prev.find((e) => e.id === item.id);
 			nylon = prev.map((e) => {
-				return e.item === name ? { ...e, quantity: (e.quantity += 1) } : e;
+				return e.id === item.id ? { ...e, quantity: (e.quantity += 1) } : e;
 			});
 			return oten ? nylon : [...prev, item];
 		});
-		console.log(cart);
 	};
 
 	return (
@@ -55,11 +59,13 @@ export default function FoodBox({ name, price, sizes, img, setFood, id, foodz })
 															: size;
 												  });
 										newObj = { ...prev[foodIndex], sizes: objProps };
+
 										newFood = foodz.map((food) => {
 											return food.id === newObj.id ? newObj : food;
 										});
 										return newFood;
 									});
+									console.log(selected);
 								}}
 								className={`p-3 mb-5 text-xs  rounded-lg  ${
 									e.selected
