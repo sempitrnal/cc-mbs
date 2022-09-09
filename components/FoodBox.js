@@ -1,12 +1,30 @@
 import { nanoid } from "nanoid";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useStateContext } from "../context/context";
 
 export default function FoodBox({ name, price, sizes, img, setFood, id, foodz }) {
 	let selected = sizes ? sizes.find((e) => e.selected === true) : null;
 	let foodIndex = foodz ? foodz.findIndex((e) => e.id === id) : null;
 	const { cart, setCart } = useStateContext();
+	const addToCart = () => {
+		let item = {
+			id: id,
+			item: name,
+			price: price,
+			quantity: 1,
+		};
+		let nylon;
+		let oten;
+		setCart((prev) => {
+			oten = prev.find((e) => e.item === name);
+			nylon = prev.map((e) => {
+				return e.item === name ? { ...e, quantity: (e.quantity += 1) } : e;
+			});
+			return oten ? nylon : [...prev, item];
+		});
+		console.log(cart);
+	};
 
 	return (
 		<div className="flex flex-col items-center justify-center translate-x-10">
@@ -43,8 +61,10 @@ export default function FoodBox({ name, price, sizes, img, setFood, id, foodz })
 									});
 								}}
 								className={`p-3 mb-5 text-xs  rounded-lg  ${
-									e.selected ? "bg-black text-white" : "border"
-								} transition duration-300  rounded-md max-w hover:shadow-[0px_2px_2px_#4d4d4d19] `}
+									e.selected
+										? "bg-neutral-800 text-white"
+										: "border hover:shadow-[0px_2px_2px_#4d4d4d19]"
+								} transition duration-300 ease-in-out rounded-xl max-w  `}
 								key={e.size}
 							>
 								{e.size}
@@ -54,21 +74,7 @@ export default function FoodBox({ name, price, sizes, img, setFood, id, foodz })
 			</div>
 			{price && <p className="mb-2 font-bold">₱{price}</p>}
 			<button
-				onClick={() => {
-					let item = {
-						id: nanoid(),
-						item: name,
-						price: price,
-						quantity: 1,
-						total: price * 1,
-					};
-					let nylon;
-					setCart((prev) => {
-						nylon = [...prev, item];
-						return nylon;
-					});
-					console.log(nylon);
-				}}
+				onClick={addToCart}
 				className="px-5 py-1 text-xs transition duration-300 border rounded-full max-w hover:bg-neutral-900 hover:text-white"
 			>
 				Add to cart

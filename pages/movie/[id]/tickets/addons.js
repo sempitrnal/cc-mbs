@@ -8,10 +8,11 @@ import Header from "../../../../components/Head";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { food } from "../../../../utils/food";
 import { drinks } from "../../../../utils/food";
-import { FiShoppingCart } from "react-icons/fi";
+import { FiMinus, FiPlus, FiShoppingCart, FiTrash } from "react-icons/fi";
 import FoodBox from "../../../../components/FoodBox";
 import "swiper/css";
 import { useStateContext } from "../../../../context/context";
+import { nanoid } from "nanoid";
 export default function Seats() {
 	const router = useRouter();
 	const l = router.asPath.split("/");
@@ -20,7 +21,6 @@ export default function Seats() {
 	const [bev, setBev] = useState(drinks);
 	const { total, setCart, cart, quantity } = useStateContext();
 
-	console.log(cart);
 	return (
 		<div className=" py-[8rem] px-[1rem] lg:px-[5rem] min-h-screen ">
 			<Header title={title} />
@@ -107,7 +107,7 @@ export default function Seats() {
 					<Swiper width="150" spaceBetween={50}>
 						{bev.map((e) => {
 							return (
-								<SwiperSlide key={e.id}>
+								<SwiperSlide key={nanoid()}>
 									<FoodBox
 										id={e.id}
 										foodz={bev}
@@ -126,20 +126,33 @@ export default function Seats() {
 					<div className="absolute p-8 text-3xl bg-white border rounded-full -top-10">
 						<FiShoppingCart />
 					</div>
-					<h2 className="text-2xl font-semibold text-center text-white uppercase mt-28">
+					<h2 className="mb-5 text-2xl font-semibold text-center text-white uppercase mt-28">
 						Order Summary
 					</h2>
 					<div className="w-[85%] h-[60%] overflow-y-scroll cart">
-						{cart.map((e) => {
+						{cart.map((e, i) => {
 							return (
-								<div className="flex items-center justify-between mt-5 text-white" key={e.id}>
+								<div className="flex items-center justify-between mb-5 text-white" key={e.id}>
 									<div className="">
 										<p className="font-semibold">{e.item}</p>
 										<p className="mt-1 text-xs text-neutral-400">
 											Quantity <span className="font-bold text-white">{e.quantity}</span>{" "}
 										</p>
+										{i > 0 && (
+											<div className="flex">
+												<div className="">
+													<FiPlus />
+												</div>
+												<div className="">
+													<FiMinus />
+												</div>
+												<div className="">
+													<FiTrash />
+												</div>
+											</div>
+										)}
 									</div>
-									<div className="">₱ {e.total}</div>
+									<div className="">₱ {e.quantity * e.price}</div>
 								</div>
 							);
 						})}
