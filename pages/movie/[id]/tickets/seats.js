@@ -30,7 +30,8 @@ export default function Seats({ movie }) {
 	}
 	const [seats, setSeats] = useState(seatsObj);
 	const [selectedMore, setSelectedMore] = useState(false);
-	const { quantity, selectedSeats, setSelectedSeats, setCart, total, cart } = useStateContext();
+	const { quantity, selectedSeats, setSelectedSeats, setCart, total, cart, price } =
+		useStateContext();
 	const [proceed, setProceed] = useState(false);
 	useEffect(() => {
 		let s = seats.map((e) => e.mgaSeats.filter((e) => e.selected === true));
@@ -187,6 +188,7 @@ export default function Seats({ movie }) {
 																					item: movie.title,
 																					quantity: quantity,
 																					total: total,
+																					price: 290,
 																				},
 																			];
 																		});
