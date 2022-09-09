@@ -11,13 +11,16 @@ import { drinks } from "../../../../utils/food";
 import { FiShoppingCart } from "react-icons/fi";
 import FoodBox from "../../../../components/FoodBox";
 import "swiper/css";
-import DrinkBox from "../../../../components/DrinkBox";
+import { useStateContext } from "../../../../context/context";
 export default function Seats() {
 	const router = useRouter();
 	const l = router.asPath.split("/");
 	let title = "Tickets | Addons";
 	const [foodz, setFood] = useState(food);
 	const [bev, setBev] = useState(drinks);
+	const { total, setCart, cart, quantity } = useStateContext();
+
+	console.log(cart);
 	return (
 		<div className=" py-[8rem] px-[1rem] lg:px-[5rem] min-h-screen ">
 			<Header title={title} />
@@ -105,10 +108,10 @@ export default function Seats() {
 						{bev.map((e) => {
 							return (
 								<SwiperSlide key={e.id}>
-									<DrinkBox
+									<FoodBox
 										id={e.id}
-										bev={bev}
-										setBev={setBev}
+										foodz={bev}
+										setFood={setBev}
 										name={e.name}
 										price={e.price ? e.price : null}
 										sizes={e.sizes ? e.sizes : null}
@@ -119,12 +122,28 @@ export default function Seats() {
 						})}
 					</Swiper>
 				</div>
-				<div className="w-full h-[80vh] bg-neutral-800 rounded-[3rem] flex justify-center relative">
+				<div className="w-full h-[80vh] bg-neutral-800 rounded-[3rem] flex flex-col items-center relative">
 					<div className="absolute p-8 text-3xl bg-white border rounded-full -top-10">
 						<FiShoppingCart />
 					</div>
-
-					<h2 className="text-2xl font-semibold text-white uppercase mt-28">Order Summary</h2>
+					<h2 className="text-2xl font-semibold text-center text-white uppercase mt-28">
+						Order Summary
+					</h2>
+					<div className="w-[85%] h-[60%] overflow-y-scroll cart">
+						{cart.map((e) => {
+							return (
+								<div className="flex items-center justify-between mt-5 text-white" key={e.id}>
+									<div className="">
+										<p className="font-semibold">{e.item}</p>
+										<p className="mt-1 text-xs text-neutral-400">
+											Quantity <span className="font-bold text-white">{e.quantity}</span>{" "}
+										</p>
+									</div>
+									<div className="">₱ {e.total}</div>
+								</div>
+							);
+						})}
+					</div>
 				</div>
 			</motion.div>
 		</div>
