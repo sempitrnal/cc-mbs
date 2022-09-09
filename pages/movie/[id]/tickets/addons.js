@@ -8,7 +8,7 @@ import Header from "../../../../components/Head";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { food } from "../../../../utils/food";
 import { drinks } from "../../../../utils/food";
-import { FiMinus, FiPlus, FiShoppingCart, FiTrash } from "react-icons/fi";
+import { FiArrowRight, FiMinus, FiPlus, FiShoppingCart, FiTrash } from "react-icons/fi";
 import FoodBox from "../../../../components/FoodBox";
 import "swiper/css";
 import { useStateContext } from "../../../../context/context";
@@ -20,7 +20,11 @@ export default function Seats() {
 	const [foodz, setFood] = useState(food);
 	const [bev, setBev] = useState(drinks);
 	const { total, setCart, cart, quantity } = useStateContext();
-
+	let cartTotal = [0];
+	cart.map((e) => {
+		cartTotal.push(e.quantity * e.price);
+	});
+	console.log(cartTotal);
 	return (
 		<div className=" py-[8rem] px-[1rem] lg:px-[5rem] min-h-screen ">
 			<Header title={title} />
@@ -132,7 +136,7 @@ export default function Seats() {
 					<h2 className="mb-5 text-2xl font-semibold text-center text-white uppercase mt-28">
 						Order Summary
 					</h2>
-					<motion.div layout className="w-[85%] h-[60%] overflow-y-scroll cart">
+					<motion.div layout className="w-[95%] px-5 h-[50%] overflow-y-scroll cart">
 						{cart.map((e, i) => {
 							return (
 								<motion.div
@@ -201,6 +205,13 @@ export default function Seats() {
 							);
 						})}
 					</motion.div>
+					<div className="mt-10 flex justify-between text-white w-[50%]">
+						<p>Total</p>
+						<p className="font-semibold">₱ {cartTotal.reduce((a, b) => a + b)}</p>
+					</div>
+					<button className="flex items-center justify-center gap-2 px-5 py-2 bg-white rounded-lg mt-7 w-max">
+						<p>Proceed</p> <FiArrowRight />{" "}
+					</button>
 				</motion.div>
 			</motion.div>
 		</div>

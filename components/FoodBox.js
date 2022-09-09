@@ -11,13 +11,14 @@ export default function FoodBox({ name, price, sizes, img, setFood, id, foodz })
 		let item = {
 			id: id,
 			item: name,
-			price: price,
+			price: sizes ? selected.price : price,
 			quantity: 1,
+			size: selected ? selected : null,
 		};
 		let nylon;
 		let oten;
 		setCart((prev) => {
-			oten = prev.find((e) => e.item === name);
+			oten = prev.find((e) => e.id === id);
 			nylon = prev.map((e) => {
 				return e.item === name ? { ...e, quantity: (e.quantity += 1) } : e;
 			});
