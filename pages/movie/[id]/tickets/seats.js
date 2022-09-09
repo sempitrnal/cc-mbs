@@ -8,6 +8,7 @@ import Image from "next/image";
 import { MdChairAlt } from "react-icons/md";
 import { useStateContext } from "../../../../context/context";
 import Header from "../../../../components/Head";
+import { nanoid } from "nanoid";
 export default function Seats({ movie }) {
 	const router = useRouter();
 	const l = router.asPath.split("/");
@@ -29,7 +30,7 @@ export default function Seats({ movie }) {
 	}
 	const [seats, setSeats] = useState(seatsObj);
 	const [selectedMore, setSelectedMore] = useState(false);
-	const { quantity, selectedSeats, setSelectedSeats } = useStateContext();
+	const { quantity, selectedSeats, setSelectedSeats, setCart, total, cart } = useStateContext();
 	const [proceed, setProceed] = useState(false);
 	useEffect(() => {
 		let s = seats.map((e) => e.mgaSeats.filter((e) => e.selected === true));
@@ -179,6 +180,17 @@ export default function Seats({ movie }) {
 															<Tooltip content={seat} className="bg-red-500 ">
 																<div
 																	onClick={() => {
+																		setCart((prev) => {
+																			return [
+																				{
+																					id: nanoid(),
+																					item: movie.title,
+																					quantity: quantity,
+																					total: total,
+																				},
+																			];
+																		});
+																		localStorage.setItem("cart", JSON.stringify(cart));
 																		let selected;
 																		let newObj;
 																		let seatObjIndex;
@@ -258,10 +270,12 @@ export default function Seats({ movie }) {
 							</div>
 							<button
 								onClick={() => {
-									selectedSeats.length === quantity ? setProceed(true) : null;
-									router.push(`/movie/${movie.id}/tickets/addons`, undefined, {
-										scroll: false,
-									});
+									selectedSeats.length === quantity
+										? (setProceed(true),
+										  router.push(`/movie/${movie.id}/tickets/addons`, undefined, {
+												scroll: false,
+										  }))
+										: null;
 								}}
 								className={`w-[8rem] h-[3rem] mt-5 text-white transition ${
 									selectedSeats && selectedSeats.length === quantity
