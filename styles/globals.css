@@ -5,9 +5,7 @@
 .swiper-pagination-bullet {
 	background-color: #fff !important;
 }
-.cart::-webkit-scrollbar {
-	display: none; /* Safari and Chrome */
-}
+
 .swiper-pagination-bullet-active {
 	background-color: #fff !important;
 }
