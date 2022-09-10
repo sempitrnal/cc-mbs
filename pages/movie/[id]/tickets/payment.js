@@ -81,6 +81,22 @@ export default function Payment({ movie }) {
 					<Breadcrumb.Item href="">Payment</Breadcrumb.Item>
 				</Breadcrumb>
 			</FormProgress>
+			<motion.div initial="initial" animate="animate" variants={fadeUp} className="">
+				<h1 className="flex items-center justify-center text-7xl h-[50vh]">Oten</h1>
+			</motion.div>
 		</div>
 	);
+}
+export async function getServerSideProps(context) {
+	const { query } = context;
+	const response = await fetch(
+		`https://api.themoviedb.org/3/movie/${query.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`
+	);
+	const data = await response.json();
+
+	return {
+		props: {
+			movie: data,
+		},
+	};
 }

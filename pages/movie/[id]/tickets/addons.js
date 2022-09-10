@@ -142,7 +142,7 @@ export default function Addons({ movie }) {
 				</div>
 				<motion.div
 					layout
-					className="w-full h-[80vh] bg-neutral-800 rounded-[3rem] flex flex-col items-center relative"
+					className="w-full min-w-max h-[80vh] bg-neutral-800 rounded-[3rem] flex flex-col items-center relative"
 				>
 					<div className="absolute p-8 text-3xl bg-white border rounded-full -top-10">
 						<FiShoppingCart />
