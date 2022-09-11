@@ -7,8 +7,11 @@ import FormProgress from "../../../../components/FormProgress";
 import Header from "../../../../components/Head";
 import "swiper/css";
 import { useStateContext } from "../../../../context/context";
+import { useSession } from "next-auth/react";
 
 export default function Payment({ movie }) {
+	const { data: session } = useSession();
+	console.log(session);
 	const router = useRouter();
 	const l = router.asPath.split("/");
 	let title = "Tickets | Payment";
@@ -82,7 +85,10 @@ export default function Payment({ movie }) {
 				</Breadcrumb>
 			</FormProgress>
 			<motion.div initial="initial" animate="animate" variants={fadeUp} className="">
-				<h1 className="flex items-center justify-center text-7xl h-[50vh]">Oten</h1>
+				<div className="p-5 mt-10 border rounded-lg w-max">
+					<p className="capitalize">{session.user.name}</p>
+					<p>{session.user.email}</p>
+				</div>
 			</motion.div>
 		</div>
 	);
