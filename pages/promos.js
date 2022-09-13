@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { MdCheck } from "react-icons/md";
 import { motion } from "framer-motion";
+import SubscriptionPlan from "../components/SubscriptionPlan";
 
 export default function Promos() {
 	const subscription = [
@@ -36,7 +37,7 @@ export default function Promos() {
 			<Head>
 				<title>Cine-Cine | Promos</title>
 			</Head>
-			<div className="absolute top-[-8rem] left-[-7rem] -z-10">
+			<div className="absolute top-[-8rem] left-[-8rem] 3xl:left-[-7rem] -z-10">
 				<svg
 					width="2260"
 					height="931"
@@ -50,7 +51,7 @@ export default function Promos() {
 					/>
 				</svg>
 			</div>
-			<div className="grid grid-cols-[700px_1000px] gap-[5rem] z-10 items-center justify-center mb-[15rem]">
+			<div className="grid grid-cols-[700px_600px] 3xl:grid-cols-[700px_1000px] gap-[5rem] z-10 items-center justify-center mb-[15rem]">
 				<div className="relative w-[620px] h-[620px] ">
 					<Image src="/people.png" alt="people" layout="fill" />
 				</div>
@@ -69,13 +70,11 @@ export default function Promos() {
 
 			<div className="flex items-center justify-center gap-[8rem] mb-[15rem]">
 				<div className="w-[50%]">
-					<h2 className="mb-10 font-extrabold uppercase text-7xl">
-						Amazing Offers
-					</h2>
+					<h2 className="mb-10 font-extrabold uppercase text-7xl">Amazing Offers</h2>
 					<p className="text-3xl font-extralight leading-[2.5rem]">
-						Cine-Cine values its premium members and rewards them with lots of
-						benefits. From exclusive discounts to free access of numerous
-						movies. We love our members as much as you love movies!
+						Cine-Cine values its premium members and rewards them with lots of benefits. From
+						exclusive discounts to free access of numerous movies. We love our members as much as
+						you love movies!
 					</p>
 				</div>
 				<div className="relative">
@@ -93,55 +92,29 @@ export default function Promos() {
 					<div className="absolute w-[450px] h-[450px] bg-[#fff] rounded-full left-[50%] translate-x-[-50%] top-[50%] translate-y-[-35%]"></div>
 				</div>
 				<div className="w-[50%]">
-					<h2 className="mb-10 font-extrabold uppercase text-7xl">
-						bang for the buck!
-					</h2>
+					<h2 className="mb-10 font-extrabold uppercase text-7xl">bang for the buck!</h2>
 					<p className="text-3xl font-extralight leading-[2.5rem]">
-						Our membership plan is the most cheapest yet worth investment you
-						could ever imagine. Cine-Cine makes sure that our customers receives
-						more benefits than us.
+						Our membership plan is the most cheapest yet worth investment you could ever imagine.
+						Cine-Cine makes sure that our customers receives more benefits than us.
 					</p>
 				</div>
 			</div>
 			<div className="flex flex-col items-center justify-center">
-				<h2 className="mb-10 font-extrabold uppercase text-7xl">
-					Subscribe now
-				</h2>
+				<h2 className="mb-10 font-extrabold uppercase text-7xl">Subscribe now</h2>
 				<p className="mb-20 text-3xl font-light tracking-wide text-center w-[60%] leading-[2.5rem]">
-					Subscribe now to our premium membership plan to receive huge
-					discounts, exclusive promos, access to our director's club theater and
-					many more! What are you waiting for?
+					Subscribe now to our premium membership plan to receive huge discounts, exclusive promos,
+					access to our director's club theater and many more! What are you waiting for?
 				</p>
 				<div className="flex justify-center gap-3 text-center">
 					{subscription.map(({ name, price, features }, i) => {
 						return (
-							<div
-								className={`px-10 py-10 w-[16rem] rounded-[3.5rem] ${
-									name === "DIRECTOR"
-										? "bg-[#2d2d2d] text-white"
-										: "bg-[#E3E3E3]"
-								}`}
-								key={i}
-							>
-								<h3 className="text-3xl font-bold mb-7">{name}</h3>
-								<p className="mb-12">
-									<span className="mr-1 text-5xl font-extrabold">${price}</span>
-									<span className="text-2xl font-semibold">/year</span>
-								</p>
-								{features.map((e, i) => {
-									return (
-										<div
-											className="flex gap-2 text-lg translate-x-1 text-start"
-											key={i}
-										>
-											<div className="translate-y-1">
-												<MdCheck />
-											</div>
-											<p>{e}</p>
-										</div>
-									);
-								})}
-							</div>
+							<SubscriptionPlan
+								key={name}
+								name={name}
+								price={price}
+								features={features}
+								index={i}
+							/>
 						);
 					})}
 				</div>
